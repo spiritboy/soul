@@ -24,12 +24,12 @@ export class GroupComponent extends React.Component {
     render() {
         return (
             <form>
-                <div className="group">
+                <div className="group" >
                     <div className="row">
                         {this.props.group.questions.map((q) => {
                             return (
                                 <div key={q.uid} className="col-md-3">
-                                    <QuestionComponent question={q}/>
+                                    <QuestionComponent v={this.state.a} question={q}/>
                                 </div>
                             )
                         })}

@@ -11,7 +11,7 @@ export class Question {
     events;
     _value;
     onValueChanged = [];
-
+    focus;
     set value(newValue) {
         this._value = newValue;
         for (var i=0; i < this.onValueChanged.length; i++) {
@@ -22,7 +22,6 @@ export class Question {
     get value() {
         return this._value;
     }
-
     getData() {
         let qdata = new QuestionData();
         qdata.value = this.value;

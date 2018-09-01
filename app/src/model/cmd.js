@@ -1,4 +1,5 @@
 import {api} from "../services/api";
+import  "../helper";
 export class cmd {
     url;
     script;

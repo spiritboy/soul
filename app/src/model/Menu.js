@@ -19,7 +19,7 @@ export class Menu{
         this.search.isSearch = true;
 
 
-
+        window.menu = this;
         return this;
     }
 
