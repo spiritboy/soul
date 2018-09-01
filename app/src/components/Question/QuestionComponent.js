@@ -7,6 +7,7 @@ export class QuestionComponent extends React.Component {
     constructor(props) {
         super(props);
         props.question.onValueChanged.push(this.onQuestionValueChanged);
+        props.question.forceUpdate =this.onQuestionForceUpdate;
         this.fieldFactory = React.createRef();
     }
 
@@ -27,7 +28,10 @@ export class QuestionComponent extends React.Component {
             </div>
         )
     };
-
+    onQuestionForceUpdate = () => {
+        console.log(1)
+        this.forceUpdate();
+    };
     onQuestionValueChanged = (newValue) => {
         this.fieldFactory.current.onShouldChangeValue(newValue)
     };

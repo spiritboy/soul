@@ -18,6 +18,7 @@ export class MenuComponent extends React.Component {
             <div className={'container'}>
                 <header>
                     <h1>{this.props.menu.title}</h1>
+                    <img src={'http://www.samita.com//Images/Accommodations/fa/tehran-parsian-azadi-hotel.jpg'}/>
                     <div className={'div-buttons'}>
                         <button className='search-button icon' onClick={this.search}>
                             <i className="fa fa-search"/>

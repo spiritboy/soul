@@ -10,8 +10,18 @@ export class Question {
     fieldInfo;
     events;
     _value;
+    _title;
     onValueChanged = [];
-    focus;
+    forceUpdate;
+    set title(newValue) {
+        this._title = newValue;
+        if(this.forceUpdate != null)
+            this.forceUpdate();
+    }
+
+    get title() {
+        return this._title;
+    }
     set value(newValue) {
         this._value = newValue;
         for (var i=0; i < this.onValueChanged.length; i++) {
