@@ -30,14 +30,13 @@ export class Menu{
         this.fkId = 0;
         this.groups.forEach((v,i)=>{v.init();})
     }
-    findQuestion(guid, quid){
-        for(let g in this.groups)
+    findQV(guid, quid){
+        for(let g of this.groups)
         {
-            if(this.groups[g].uid === guid) {
-                for (let q in this.groups[g].questions) {
-                    var question = this.groups[g].questions[q];
-                    if (question.uid === quid) {
-                        return question;
+            if(g.uid === guid) {
+                for (let qv of g.groupValue.questionValues) {
+                    if (qv.question.uid === quid) {
+                        return qv;
                     }
                 }
             }

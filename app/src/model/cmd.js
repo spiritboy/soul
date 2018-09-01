@@ -6,7 +6,7 @@ export class cmd {
     parent;
 
     findQuestion(guid,quid){
-        return this.parent.parentGroup.parentMenu.findQuestion(guid,quid);
+        return this.parent.parentGroup.parentMenu.findQV(guid,quid);
     }
 
     evalSync = (...params) => {

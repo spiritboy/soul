@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from "prop-types";
 import {TextField} from "./TextField";
-import {Question} from "../../model/Question";
 import {DateField} from "./DateField";
 import {SelectField} from "./SelectField";
+import {QuestionValue} from "../../model/GroupValue";
 
 export class FieldFactory extends React.Component {
     constructor(props){
@@ -16,20 +16,20 @@ export class FieldFactory extends React.Component {
     }
 
     render() {
-        var {question, onValueChanging, onValueChanged, onExited, onExiting, onEntered, onEntering} = this.props;
+        var {questionValue, onValueChanging, onValueChanged, onExited, onExiting, onEntered, onEntering} = this.props;
         let field = null;
-        if (question.fieldInfo.type === 'text')
+        if (questionValue.question.fieldInfo.type === 'text')
             field = <TextField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited} onExiting={onExiting}
-                               onValueChanged={onValueChanged} onValueChanging={onValueChanging} value={question.value}
+                               onValueChanged={onValueChanged} onValueChanging={onValueChanging} value={questionValue.value}
             />
-        else if (question.fieldInfo.type === 'date')
+        else if (questionValue.question.fieldInfo.type === 'date')
             field = <DateField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited} onExiting={onExiting}
-                               onValueChanged={onValueChanged} onValueChanging={onValueChanging} value={question.value}
+                               onValueChanged={onValueChanged} onValueChanging={onValueChanging} value={questionValue.value}
             />
-        else if (question.fieldInfo.type === 'select')
+        else if (questionValue.question.fieldInfo.type === 'select')
             field = <SelectField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited} onExiting={onExiting}
-                                 source={question.fieldInfo.source} onValueChanged={onValueChanged}
-                                 onValueChanging={onValueChanging} value={question.value}
+                                 source={questionValue.question.fieldInfo.source} onValueChanged={onValueChanged}
+                                 onValueChanging={onValueChanging} value={questionValue.value}
             />
         return field;
 
@@ -37,7 +37,7 @@ export class FieldFactory extends React.Component {
 }
 
 FieldFactory.propTypes = {
-    question: PropTypes.instanceOf(Question),
+    questionValue: PropTypes.instanceOf(QuestionValue),
     onValueChanged: PropTypes.func,
     onValueChanging: PropTypes.func,
     onExiting: PropTypes.func,

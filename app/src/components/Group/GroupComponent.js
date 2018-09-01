@@ -26,10 +26,10 @@ export class GroupComponent extends React.Component {
             <form>
                 <div className="group" >
                     <div className="row">
-                        {this.props.group.questions.map((q) => {
+                        {this.props.group.groupValue.questionValues.map((qValue) => {
                             return (
-                                <div key={q.uid} className="col-md-3">
-                                    <QuestionComponent v={this.state.a} question={q}/>
+                                <div key={qValue.question.uid} className="col-md-3">
+                                    <QuestionComponent questionValue={qValue}/>
                                 </div>
                             )
                         })}

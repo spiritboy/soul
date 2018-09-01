@@ -4,10 +4,10 @@ import {_BaseField} from "./_BaseField";
 
 export class TextField extends _BaseField {
     state = {
-        value: ''
+        value: this.props.value == null ? '' : this.props.value
     };
     onValueChanged = (e) => {
-       this._onValueChange(e.target.value)
+        this._onValueChange(e.target.value)
     };
 
     render() {

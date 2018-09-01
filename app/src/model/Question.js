@@ -9,9 +9,7 @@ export class Question {
     groupUid;
     fieldInfo;
     events;
-    _value;
     _title;
-    onValueChanged = [];
     forceUpdate;
     set title(newValue) {
         this._title = newValue;
@@ -22,16 +20,7 @@ export class Question {
     get title() {
         return this._title;
     }
-    set value(newValue) {
-        this._value = newValue;
-        for (var i=0; i < this.onValueChanged.length; i++) {
-            this.onValueChanged[i](newValue);
-        }
-    }
 
-    get value() {
-        return this._value;
-    }
     getData() {
         let qdata = new QuestionData();
         qdata.value = this.value;

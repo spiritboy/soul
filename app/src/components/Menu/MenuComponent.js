@@ -6,6 +6,7 @@ import {GroupComponent} from "../Group/GroupComponent";
 import {GroupList} from "../Facilities/GroupList";
 import {SearchDialog} from "../Facilities/SearchDialog";
 import {api} from "../../services/api";
+import {GroupTable} from "../Group/GroupTable";
 
 export class MenuComponent extends React.Component {
 
@@ -39,7 +40,10 @@ export class MenuComponent extends React.Component {
                             {this.props.menu.groups.map((gr, i) => {
                                 return (
                                     <div key={gr.uid} id={gr.uid} className="tab-pane fade  group">
-                                        <GroupComponent isSearch={false} group={gr}/>
+                                        {gr.groupInfo.type === 'form' ?
+                                            <GroupComponent isSearch={false} group={gr}/>
+                                            :
+                                            <GroupTable   group={gr}/>}
                                     </div>
                                 )
                             })}
@@ -58,9 +62,9 @@ export class MenuComponent extends React.Component {
             this.props.menu.fkId = fkId;
             for (const guid in data) {
                 for (const quid in data[guid]) {
-                    const foundQuestion = this.props.menu.findQuestion(guid, quid);
-                    if (foundQuestion) {
-                        foundQuestion.value = data[guid][quid];
+                    const foundQV = this.props.menu.findQV(guid, quid);
+                    if (foundQV) {
+                        foundQV.value = data[guid][quid];
                     }
                 }
             }
@@ -70,6 +74,7 @@ export class MenuComponent extends React.Component {
         });
     }
 }
+
 MenuComponent.propTypes = {
     menu: PropTypes.instanceOf(Menu).isRequired
 };
