@@ -25,6 +25,9 @@ export class GroupTable extends React.Component {
                         })}
                     </tr>
                     </thead>
+                    <tbody>
+
+                    </tbody>
                 </table>
                 <button onClick={this.open}>open
                 </button>
@@ -33,7 +36,7 @@ export class GroupTable extends React.Component {
                     <div className="modal-dialog modal-lg" role="document">
                         <div className="modal-content">
                             <div className="modal-body">
-                                {(this.state.tempGroup == null?null:<GroupComponent group={this.state.tempGroup}/>)}
+                                {(this.state.tempGroup == null?null:<GroupComponent groupValue={this.state.tempGroup}/>)}
                                 <div className={'div-buttons'}>
                                     <button className='icon' onClick={this.save}>
                                         <i className="fa fa-plus"/>
@@ -57,9 +60,8 @@ export class GroupTable extends React.Component {
     }
 
     open = () => {
-        let newGroup = this.props.group.clone();
-        newGroup.questions[0].value = "amin";
-        this.setState({tempGroup:newGroup})
+        let newGroup = this.props.group.newGroupValue();
+        this.setState({tempGroup: newGroup});
         $('#modal' + this.props.group.uid).modal()
     }
     save = () => {
@@ -75,6 +77,6 @@ export class GroupTable extends React.Component {
     }
 }
 
-GroupComponent.propTypes = {
+GroupTable.propTypes = {
     group: PropTypes.instanceOf(Group).isRequired
 };

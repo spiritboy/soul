@@ -3,38 +3,46 @@ import {GroupData} from "./GroupData";
 import {GroupInfo} from "./GroupInfo";
 import {GroupValue} from "./GroupValue";
 
-export class Group{
+export class Group {
     parentMenu;
     title;
     type;
     uid;
     id;
     groupInfo;
-    questions=[];
-    isSearch=false;
+    questions = [];
+    isSearch = false;
     inputString;
-    groupValue;
-    init(){
-        this.questions.forEach((v,i)=>{v.init();})
+    groupValues = [];
+
+    init() {
+        this.groupValues = [];
+        this.groupValues.push(new GroupValue(this))
     }
 
     deserialize(input, parent) {
         this.inputString = input;
         this.parentMenu = parent;
-        if(!input)return this;
+        if (!input) return this;
         this.title = input.title;
         this.type = input.type;
         this.uid = input.uid;
         this.groupInfo = new GroupInfo().deserialize(input.groupInfo);
-        input.questions.forEach((value) =>{
-            this.questions.push(new Question().deserialize(value,this));
+        input.questions.forEach((value) => {
+            this.questions.push(new Question().deserialize(value, this));
         });
-        this.groupValue = new GroupValue(this);
+        this.groupValues.push(new GroupValue(this));
+        this.groupValues.push(new GroupValue(this));
+        this.groupValues.push(new GroupValue(this));
         return this;
     }
-    clone(){
-        return new Group().deserialize(this.inputString);
+
+    newGroupValue() {
+        let _newGroupValue = new GroupValue(this);
+        this.groupValues.push(_newGroupValue);
+        return _newGroupValue;
     }
+
     getData() {
         var res = new GroupData();
         res.menuuid = this.parentMenu.uid;
@@ -46,7 +54,8 @@ export class Group{
 
         return res;
     }
-    loadData(GData){
+
+    loadData(GData) {
 
     }
 }

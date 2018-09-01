@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import {QuestionComponent} from "../Question/QuestionComponent";
-import {Group} from "../../model/Group";
 import {api} from "../../services/api";
+import {GroupValue} from "../../model/GroupValue";
 
 export class GroupComponent extends React.Component {
 
@@ -12,21 +12,22 @@ export class GroupComponent extends React.Component {
 
     save = () => {
         this.setState({loading: true});
-        api.saveGroup(this.props.group, () => {
+        api.saveGroup(this.props.groupValue.group, () => {
             this.setState({loading: false});
         })
     }
     cancel = (e) => {
         e.preventDefault();
-        this.props.group.init();
+        this.props.groupValue.group.init();
     }
 
     render() {
+        console.log(this.props.groupValue.questionValues)
         return (
             <form>
                 <div className="group" >
                     <div className="row">
-                        {this.props.group.groupValue.questionValues.map((qValue) => {
+                        {this.props.groupValue.questionValues.map((qValue) => {
                             return (
                                 <div key={qValue.question.uid} className="col-md-3">
                                     <QuestionComponent questionValue={qValue}/>
@@ -59,5 +60,5 @@ export class GroupComponent extends React.Component {
 }
 
 GroupComponent.propTypes = {
-    group: PropTypes.instanceOf(Group).isRequired
+    groupValue: PropTypes.instanceOf(GroupValue).isRequired
 };

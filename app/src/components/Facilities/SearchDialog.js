@@ -15,7 +15,7 @@ export class SearchDialog extends React.Component{
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                         <div className="modal-body">
-                            <GroupComponent group={this.props.group} isSearch={true}/>
+                            <GroupComponent groupValue={this.props.group.groupValues[0]}  isSearch={true}/>
                             <div>
                                 <button className="icon" onClick={this.search}><i className="fa fa-search"/></button>
                             </div>

@@ -41,7 +41,8 @@ export class MenuComponent extends React.Component {
                                 return (
                                     <div key={gr.uid} id={gr.uid} className="tab-pane fade  group">
                                         {gr.groupInfo.type === 'form' ?
-                                            <GroupComponent isSearch={false} group={gr}/>
+                                            <GroupComponent isSearch={false}
+                                                            groupValue={gr.groupValues[0]}/>
                                             :
                                             <GroupTable   group={gr}/>}
                                     </div>
