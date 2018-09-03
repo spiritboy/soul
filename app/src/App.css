@@ -2,3 +2,21 @@ tr.active{
     background-color: #0c5460;
     color:white;
 }
+.green{
+    color:green;
+}
+.blue{
+    color:deepskyblue;
+}
+.red{
+    color: darkred;
+}
+button.icon{
+    padding: 2px;
+    background-color: transparent;
+    border:0px;
+    cursor: pointer;
+}
+button.icon:hover{
+    background-color: lightgray;
+}

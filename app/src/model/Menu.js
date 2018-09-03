@@ -1,6 +1,7 @@
 import {Group} from "./Group";
+import {GroupValue} from "./GroupValue";
 
-export class Menu{
+export class Menu {
     title;
     groups = [];
     search;
@@ -13,9 +14,9 @@ export class Menu{
         this.title = input.title;
         this.uid = input.uid;
         input.groups.forEach((value) => {
-            this.groups.push(new Group().deserialize(value,this));
+            this.groups.push(new Group().deserialize(value, this));
         });
-        this.search = new Group().deserialize(input.search,this);
+        this.search = new Group().deserialize(input.search, this);
         this.search.isSearch = true;
 
 
@@ -23,19 +24,27 @@ export class Menu{
         return this;
     }
 
-    loadData(GData){
+    loadData(GData) {
 
     }
-    init(){
+
+    init() {
         this.fkId = 0;
-        this.groups.forEach((v,i)=>{v.init();})
+        this.groups.forEach((v, i) => {
+            v.init();
+        })
     }
-    findQV(guid, quid,row){
-        if(!row)row = 0;
-        for(let g of this.groups)
-        {
-            if(g.uid === guid) {
-                for (let qv of g.groupValues[0].questionValues) {
+
+    findQV(guid, quid, row) {
+        if (!row) row = 0;
+
+        for (let g of this.groups) {
+            if (g.uid === guid) {
+                if (g.groupValues.length === row) {
+                    //add new groupValue
+                    g.addGroupValue(new GroupValue(g));
+                }
+                for (let qv of g.groupValues[row].questionValues) {
                     if (qv.question.uid === quid) {
                         return qv;
                     }

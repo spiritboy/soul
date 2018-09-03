@@ -19,7 +19,6 @@ export class MenuComponent extends React.Component {
             <div className={'container'}>
                 <header>
                     <h1>{this.props.menu.title}</h1>
-                    <img src={'http://www.samita.com//Images/Accommodations/fa/tehran-parsian-azadi-hotel.jpg'}/>
                     <div className={'div-buttons'}>
                         <button className='search-button icon' onClick={this.search}>
                             <i className="fa fa-search"/>
@@ -44,7 +43,7 @@ export class MenuComponent extends React.Component {
                                             <GroupComponent isSearch={false}
                                                             groupValue={gr.groupValues[0]}/>
                                             :
-                                            <GroupTable   group={gr}/>}
+                                            <GroupTable group={gr}/>}
                                     </div>
                                 )
                             })}
@@ -60,14 +59,29 @@ export class MenuComponent extends React.Component {
 
         this.props.menu.init();
         api.loadFK(this.props.menu, fkId, (data) => {
+            console.log(data);
             this.props.menu.fkId = fkId;
             for (const guid in data) {
-                for (const quid in data[guid]) {
-                    const foundQV = this.props.menu.findQV(guid, quid);
-                    if (foundQV) {
-                        foundQV.value = data[guid][quid];
+                if (Array.isArray(data[guid])) {
+                    let i = 0;
+                    for (const row of data[guid]) {
+                        alert(i)
+                        for (const quid in row) {
+                            const foundQV = this.props.menu.findQV(guid, quid, i);
+                            if (foundQV) {
+                                foundQV.value = row[quid];
+                            }
+                        }
+                        i = i+1;
                     }
                 }
+                else
+                    for (const quid in data[guid]) {
+                        const foundQV = this.props.menu.findQV(guid, quid);
+                        if (foundQV) {
+                            foundQV.value = data[guid][quid];
+                        }
+                    }
             }
             this.forceUpdate();
             $('#myModal').modal('hide')

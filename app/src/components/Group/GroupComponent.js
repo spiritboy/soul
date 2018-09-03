@@ -7,27 +7,35 @@ import {GroupValue} from "../../model/GroupValue";
 export class GroupComponent extends React.Component {
 
     state = {
-        loading: false
+        loading: false,
+        groupValue: null
     };
+
+    componentWillMount() {
+        this.setState({groupValue: this.props.groupValue})
+    }
 
     save = () => {
         this.setState({loading: true});
-        api.saveGroup(this.props.groupValue.group, () => {
+        api.saveGroup(this.s.groupValue.group, () => {
             this.setState({loading: false});
         })
     }
     cancel = (e) => {
         e.preventDefault();
-        this.props.groupValue.group.init();
+        this.state.groupValue.group.init();
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({groupValue: nextProps.groupValue})
+    }
     render() {
-        console.log(this.props.groupValue.questionValues)
+        if (this.state.groupValue == null) return null;
         return (
             <form>
-                <div className="group" >
+                <div className="group">
                     <div className="row">
-                        {this.props.groupValue.questionValues.map((qValue) => {
+                        {this.state.groupValue.questionValues.map((qValue) => {
                             return (
                                 <div key={qValue.question.uid} className="col-md-3">
                                     <QuestionComponent questionValue={qValue}/>
@@ -57,6 +65,7 @@ export class GroupComponent extends React.Component {
             </form>
         )
     }
+
 }
 
 GroupComponent.propTypes = {

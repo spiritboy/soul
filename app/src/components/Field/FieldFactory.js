@@ -6,30 +6,46 @@ import {SelectField} from "./SelectField";
 import {QuestionValue} from "../../model/GroupValue";
 
 export class FieldFactory extends React.Component {
-    constructor(props){
+    state = {questionValue: null}
+
+    constructor(props) {
         super(props);
         this.field = React.createRef();
     }
+
     field;
     onShouldChangeValue = (newValue) => {
         this.field.current.onShouldChangeValue(newValue);
     }
 
+    componentWillMount() {
+        this.setState({questionValue: this.props.questionValue})
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({questionValue: nextProps.questionValue})
+    }
+
     render() {
-        var {questionValue, onValueChanging, onValueChanged, onExited, onExiting, onEntered, onEntering} = this.props;
+        var {onValueChanging, onValueChanged, onExited, onExiting, onEntered, onEntering} = this.props;
         let field = null;
-        if (questionValue.question.fieldInfo.type === 'text')
-            field = <TextField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited} onExiting={onExiting}
-                               onValueChanged={onValueChanged} onValueChanging={onValueChanging} value={questionValue.value}
+        if (this.state.questionValue.question.fieldInfo.type === 'text')
+            field = <TextField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited}
+                               onExiting={onExiting}
+                               onValueChanged={onValueChanged} onValueChanging={onValueChanging}
+                               value={this.state.questionValue.value}
             />
-        else if (questionValue.question.fieldInfo.type === 'date')
-            field = <DateField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited} onExiting={onExiting}
-                               onValueChanged={onValueChanged} onValueChanging={onValueChanging} value={questionValue.value}
+        else if (this.state.questionValue.question.fieldInfo.type === 'date')
+            field = <DateField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited}
+                               onExiting={onExiting}
+                               onValueChanged={onValueChanged} onValueChanging={onValueChanging}
+                               value={this.state.questionValue.value}
             />
-        else if (questionValue.question.fieldInfo.type === 'select')
-            field = <SelectField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited} onExiting={onExiting}
-                                 source={questionValue.question.fieldInfo.source} onValueChanged={onValueChanged}
-                                 onValueChanging={onValueChanging} value={questionValue.value}
+        else if (this.state.questionValue.question.fieldInfo.type === 'select')
+            field = <SelectField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited}
+                                 onExiting={onExiting}
+                                 source={this.state.questionValue.question.fieldInfo.source} onValueChanged={onValueChanged}
+                                 onValueChanging={onValueChanging} value={this.state.questionValue.value}
             />
         return field;
 

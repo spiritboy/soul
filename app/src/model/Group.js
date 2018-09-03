@@ -31,16 +31,21 @@ export class Group {
         input.questions.forEach((value) => {
             this.questions.push(new Question().deserialize(value, this));
         });
-        this.groupValues.push(new GroupValue(this));
-        this.groupValues.push(new GroupValue(this));
-        this.groupValues.push(new GroupValue(this));
+        if (this.groupInfo.type === 'form')
+            this.groupValues.push(new GroupValue(this));
         return this;
     }
 
-    newGroupValue() {
-        let _newGroupValue = new GroupValue(this);
-        this.groupValues.push(_newGroupValue);
-        return _newGroupValue;
+    deleteGroupValue(groupValue) {
+        let ind = this.groupValues.indexOf(groupValue);
+        if (ind >= 0) {
+            this.groupValues.splice(ind, 1);
+        }
+    }
+
+    addGroupValue(newGroupValue) {
+        if (this.groupValues.indexOf(newGroupValue) < 0)
+            this.groupValues.push(newGroupValue);
     }
 
     getData() {

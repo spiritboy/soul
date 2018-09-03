@@ -8,15 +8,26 @@ export class QuestionComponent extends React.Component {
     constructor(props) {
         super(props);
         props.questionValue.onValueChanged.push(this.onQuestionValueChanged);
-        props.questionValue.question.forceUpdate =this.onQuestionForceUpdate;
+        props.questionValue.question.forceUpdate = this.onQuestionForceUpdate;
         this.fieldFactory = React.createRef();
+    }
+
+    componentWillMount() {
+        this.setState({questionValue: this.props.questionValue})
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({questionValue: nextProps.questionValue})
+        if(nextProps.questionValue.onValueChanged.length == 0)
+            nextProps.questionValue.onValueChanged.push(this.onQuestionValueChanged)
+
     }
 
     render() {
         return (
             <div>
                 <div className={"form-group"}>
-                    <label className={"control-label"}>{this.props.questionValue.question.title}</label>
+                    <label className={"control-label"}>{this.state.questionValue.question.title}</label>
                     <FieldFactory ref={this.fieldFactory} onValueChanged={this.onValueChanged}
                                   onValueChanging={this.onValueChanging}
                                   onQuestionValueChanged={this.onQuestionValueChanged}
@@ -24,24 +35,22 @@ export class QuestionComponent extends React.Component {
                                   onEntered={this.onEntered}
                                   onExiting={this.onExiting}
                                   onExited={this.onExited}
-                                  questionValue={this.props.questionValue}/>
+                                  questionValue={this.state.questionValue}/>
                 </div>
             </div>
         )
     };
+
     onQuestionForceUpdate = () => {
-        console.log(1)
         this.forceUpdate();
     };
     onQuestionValueChanged = (newValue) => {
         this.fieldFactory.current.onShouldChangeValue(newValue)
     };
     onValueChanging = (prevValue, newValue) => {
-        console.log('changing, ', prevValue, newValue);
         return true;
     };
     onValueChanged = (prevValue, newValue) => {
-        console.log('changed, ', prevValue, newValue);
         this.props.questionValue.value = newValue;
     };
     onExiting = () => {

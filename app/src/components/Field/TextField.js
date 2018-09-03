@@ -6,6 +6,14 @@ export class TextField extends _BaseField {
     state = {
         value: this.props.value == null ? '' : this.props.value
     };
+    componentWillMount() {
+        this.setState({value: this.props.value == null || isNaN(this.props.value) ? '' : this.props.value.toString()})
+    }
+
+    componentWillReceiveProps(nextProps) {
+        var newval =nextProps.value == null ? '' : nextProps.value.toString();
+        this.setState({value: newval})
+    }
     onValueChanged = (e) => {
         this._onValueChange(e.target.value)
     };
