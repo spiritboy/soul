@@ -48,16 +48,27 @@ export class Group {
             this.groupValues.push(newGroupValue);
     }
 
-    getData() {
-        var res = new GroupData();
-        res.menuuid = this.parentMenu.uid;
-        res.uid = this.uid;
-        res.title = this.title;
-        this.questions.forEach(function (q, index) {
-            res.questionsData.push(q.getData());
-        });
+    normalizeData() {
+        let arr = [];
+        for (let g of this.groupValues) {
+            var obj = {};
+            for (let q of g.questionValues) {
+                if (q.value != null)
+                    obj[q.question.uid] = q.value;
+                else if (this.isSearch)
+                    obj[q.question.uid] = "";
+            }
+            arr.push(obj);
+        }
 
-        return res;
+        arr = this.groupInfo.type === 'table' ? arr : arr[0];
+        return{
+            data: arr,
+            fkId: this.parentMenu.fkId,
+            groupUid: this.uid,
+            menuUid: this.parentMenu.uid
+        }
+
     }
 
     loadData(GData) {

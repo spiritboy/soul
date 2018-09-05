@@ -45,13 +45,12 @@ function searchNormalizer(searchObj) {
 
 app.post('/searchMenu', function (req, res) {
 
-    var searchObj = searchNormalizer(req.body);
+    var searchObj = searchNormalizer(req.body.data);
     var proj = {"fkId": 1};
-
-    for (let i in searchObj) {
-        searchObj[i] = new RegExp(searchObj[i]);
-        proj[i] = 1;
-    }
+    db.getDefinition().then(function (menuDefinition) {
+        let questionsInSearch
+         for(g of menuDefinition.groups)
+    });
     db.search(searchObj, proj).then(function (d) {
         res.send(d);
     }).catch(function (e) {

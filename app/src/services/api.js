@@ -11,7 +11,7 @@ export class api {
     }
 
     static searchMenu(group, callback) {
-        const result = group.getData().normalizeData(true);
+        const result = group.normalizeData()
         result.menuUid = group.parentMenu.uid;
 
         const xhttp = new XMLHttpRequest();
@@ -24,7 +24,7 @@ export class api {
         xhttp.open("POST", api.url('/searchMenu'), true);
         xhttp.setRequestHeader("Content-Type", "application/json");
 
-
+console.log(result);
         xhttp.send(JSON.stringify(result));
     }
 
@@ -44,12 +44,8 @@ export class api {
     }
 
     static saveGroup = (group, callback) => {
-        const result = {
-            data: group.getData().normalizeData(false),
-            fkId: group.parentMenu.fkId,
-            groupUid: group.uid,
-            menuUid: group.parentMenu.uid
-        };
+        const result = group.normalizeData();
+        console.log(result);
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {

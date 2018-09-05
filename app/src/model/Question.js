@@ -21,14 +21,6 @@ export class Question {
         return this._title;
     }
 
-    getData() {
-        let qdata = new QuestionData();
-        qdata.value = this.value;
-        qdata.uid = this.uid;
-
-        return qdata;
-    }
-
     init() {
         this.value = "";
     }

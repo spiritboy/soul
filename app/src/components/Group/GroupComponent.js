@@ -15,9 +15,10 @@ export class GroupComponent extends React.Component {
         this.setState({groupValue: this.props.groupValue})
     }
 
-    save = () => {
+    save = (e) => {
+        e.preventDefault();
         this.setState({loading: true});
-        api.saveGroup(this.s.groupValue.group, () => {
+        api.saveGroup(this.state.groupValue.group, () => {
             this.setState({loading: false});
         })
     }

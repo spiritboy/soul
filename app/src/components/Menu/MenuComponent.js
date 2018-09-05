@@ -59,13 +59,11 @@ export class MenuComponent extends React.Component {
 
         this.props.menu.init();
         api.loadFK(this.props.menu, fkId, (data) => {
-            console.log(data);
             this.props.menu.fkId = fkId;
             for (const guid in data) {
                 if (Array.isArray(data[guid])) {
                     let i = 0;
                     for (const row of data[guid]) {
-                        alert(i)
                         for (const quid in row) {
                             const foundQV = this.props.menu.findQV(guid, quid, i);
                             if (foundQV) {

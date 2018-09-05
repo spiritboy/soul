@@ -1,6 +1,9 @@
 import {Question} from "./Question";
+import {GroupData} from "./GroupData";
 
 export class GroupValue {
+    group;
+    questionValues = [];
     constructor(group) {
         this.group = group;
         this.group.questions.forEach((q) =>{
@@ -8,8 +11,7 @@ export class GroupValue {
         });
     }
 
-    group;
-    questionValues = [];
+
 }
 
 export class QuestionValue {

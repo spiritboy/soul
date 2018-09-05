@@ -60,9 +60,7 @@ export class SearchDialog extends React.Component{
     }
 
     normalizeItem(item, parent, MAINITEM) {
-
-        console.log(item)
-        for (const j in item) {
+            for (const j in item) {
             if (typeof(item[j]) !== "object") {
                 MAINITEM[parent ? parent + '.' + j : j] = item[j];
             }
