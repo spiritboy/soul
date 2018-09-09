@@ -1,3 +1,6 @@
+var Menu = require('./model/Menu');
+
+
 var url = require('url');
 var cors = require('cors')
 var express = require('express');
@@ -5,6 +8,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var db = require('./db');
+var helper = require('./helper');
 
 
 var app = express();
@@ -40,22 +44,26 @@ function searchNormalizer(searchObj) {
     delete searchObj['title'];
     delete searchObj['uid'];
     delete searchObj['menuUid'];
+    //regex
+    for (let k in searchObj) {
+        searchObj[k] = new RegExp(searchObj[k])
+    }
     return searchObj;
 }
 
 app.post('/searchMenu', function (req, res) {
-
     var searchObj = searchNormalizer(req.body.data);
-    var proj = {"fkId": 1};
-    db.getDefinition().then(function (menuDefinition) {
-        let questionsInSearch
-         for(g of menuDefinition.groups)
+    db.getDefinition().then(function (data) {
+        var menuDefinition = new Menu().deserialize(data);
+        //calculate the projection from the menu structure ...
+        let proj = menuDefinition.getProjection();
+        db.search(searchObj, proj).then(function (d) {
+            //prepare the results before send
+            res.send(helper.prepareSearchResults(d,menuDefinition));
+        }).catch(function (e) {
+            res.send(e);
+        })
     });
-    db.search(searchObj, proj).then(function (d) {
-        res.send(d);
-    }).catch(function (e) {
-        res.send(e);
-    })
 
 
 });

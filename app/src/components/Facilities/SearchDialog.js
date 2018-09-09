@@ -12,7 +12,7 @@ export class SearchDialog extends React.Component{
         return (
             <div className="modal fade" id="myModal" tabIndex={-1} role="dialog"
                  aria-labelledby="myModalCenterTitle" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered" role="document">
+                <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-body">
                             <GroupComponent groupValue={this.props.group.groupValues[0]}  isSearch={true}/>

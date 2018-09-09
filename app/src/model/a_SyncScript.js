@@ -31,7 +31,7 @@ export class a_SyncScript {
         }
         else if (this.script != null) {
             let options = eval(this.script);
-            return options.filter(v => v.label.toString().toLowerCase().indexOf(params[0].value.toString().toLowerCase()) > -1);
+            return options.filter(v =>params.length == 0 || v.label.toString().toLowerCase().indexOf(params[0].value.toString().toLowerCase()) > -1);
         }
     }
 

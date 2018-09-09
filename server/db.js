@@ -60,9 +60,9 @@ module.exports.loadfk = (fkId) => {
         })
     });
 }
-module.exports.search = (query, proj) => {
+module.exports.search = (query, projection) => {
     return new Promise(function (fulfill, reject) {
-        db.collection('repo').find(query).project(proj)
+        db.collection('repo').find(query).project(projection)
             .toArray()
             .then(function (data) {
                 fulfill(data);

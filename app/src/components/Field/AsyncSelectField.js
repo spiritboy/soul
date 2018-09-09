@@ -1,38 +1,36 @@
 import React from 'react'
 import PropTypes from "prop-types";
 
-import Select from 'react-select/lib';
+import AsyncSelect from 'react-select/lib/Async';
 import {Source} from "../../model/Source";
 import {_BaseField} from "./_BaseField";
 
 
-export class SelectField extends _BaseField {
+export class AsyncSelectField extends _BaseField {
     state = {
-        value: '',
-        options:[]
+        value: ''
     };
-    componentWillMount(){
+    loadOptions = (inputValue, callback) => {
         let a_Sync_options = this.props.source.options;
-        this.setState({options:a_Sync_options.evalSync()})
-    }
-    options=[] ;
+        a_Sync_options.eval(callback, {key: '{filter}', value: inputValue})
+    };
     onValueChange = (selectedOption) => {
        this._onValueChange(selectedOption)
     };
     render() {
         return (
-            <Select onBlur={this.onBlur}
+            <AsyncSelect onBlur={this.onBlur}
                          onFocus={this.onFocus} cacheOptions
                          value={this.state.value}
                          onChange={this.onValueChange}
-                         options={this.state.options}
+                         loadOptions={this.loadOptions}
 
             />
         )
     }
 }
 
-SelectField.propTypes = {
+AsyncSelectField.propTypes = {
     onValueChanged: PropTypes.func,
     onValueChanging: PropTypes.func,
     onShouldChangeValue: PropTypes.func,
