@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ad0431a-de84-45c4-844d-4de9521ff107" name="Default Changelist" comment="Default Changelist">
-      <change afterPath="$PROJECT_DIR$/app/src/components/Field/AsyncSelectField.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/helper.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/model/Group.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/model/Menu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/model/Question.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/Facilities/SearchDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/Facilities/SearchDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/Field/FieldFactory.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/Field/FieldFactory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/Field/SelectField.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/Field/SelectField.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/model/a_SyncScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/model/a_SyncScript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -86,8 +73,8 @@
       <file leaf-file-name="a_SyncScript.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/model/a_SyncScript.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="33" column="59" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="59" />
+            <state relative-caret-position="234">
+              <caret line="13" column="40" lean-forward="true" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -378,12 +365,12 @@
       <workItem from="1536072217137" duration="1880000" />
       <workItem from="1536142767639" duration="4602000" />
       <workItem from="1536415346007" duration="599000" />
-      <workItem from="1536513575624" duration="5575000" />
+      <workItem from="1536513575624" duration="5736000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41139000" />
+    <option name="totallyTimeSpent" value="41300000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -398,7 +385,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17019667" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17019667" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32884097" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
@@ -407,7 +394,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.32838285" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Mongo Explorer" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.37458745" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.37458745" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.44224423" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -840,8 +827,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/model/a_SyncScript.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="33" column="59" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="59" />
+        <state relative-caret-position="234">
+          <caret line="13" column="40" lean-forward="true" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
         </state>
       </provider>
     </entry>
