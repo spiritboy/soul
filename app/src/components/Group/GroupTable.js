@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import {GroupComponent} from "./GroupComponent";
 import {GroupValue} from "../../model/GroupValue";
 import {api} from "../../services/api";
+import {DisplayFieldFactory} from "../Field/DisplayField/DisplayFieldFactory";
 
 export class GroupTable extends React.Component {
     state = {cols: [], tempGroup: null, groupValues: []};
@@ -17,9 +18,11 @@ export class GroupTable extends React.Component {
         this.calculateColumns();
         this.setState({groupValues: this.props.group.groupValues == null ? [] : this.props.group.groupValues});
     }
+
     componentWillReceiveProps(nextProps) {
         this.setState({groupValues: nextProps.group.groupValues == null ? [] : nextProps.group.groupValues});
     }
+
     render() {
         return (
 
@@ -38,7 +41,9 @@ export class GroupTable extends React.Component {
                     <tbody>
                     {this.state.groupValues.map((groupValue, i) =>
                         <tr key={i}>
-                            {groupValue.questionValues.map((qValue, j) => <td key={j}>{qValue.value}</td>)}
+                            {groupValue.questionValues.map((qValue, j) => <td key={j}>{
+                                <DisplayFieldFactory questionValue={qValue}/>
+                            }</td>)}
                             <td>
                                 <button className={'icon green'} onClick={() => {
                                     this.edit(groupValue)
@@ -109,7 +114,7 @@ export class GroupTable extends React.Component {
         this.forceUpdate();
     }
     delete = (groupValue) => {
-        if(window.confirm("آیا از حذف این آیتم مطمئن هستید؟"))
+        if (window.confirm("آیا از حذف این آیتم مطمئن هستید؟"))
             this.props.group.deleteGroupValue(groupValue);
         this.forceUpdate();
     }

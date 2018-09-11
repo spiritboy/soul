@@ -6,7 +6,7 @@ export class api {
     };
 
     static getDefinition(menuId) {
-        return fetch(api.url('/getDefinition'))
+        return fetch(api.url('/soul/getDefinition'))
             .then(res => res.json()).then(res => new Menu().deserialize(res));
     }
 
@@ -21,7 +21,7 @@ export class api {
                 callback(data);
             }
         };
-        xhttp.open("POST", api.url('/searchMenu'), true);
+        xhttp.open("POST", api.url('/soul/searchMenu'), true);
         xhttp.setRequestHeader("Content-Type", "application/json");
 
 console.log(result);
@@ -36,7 +36,7 @@ console.log(result);
                 callback(data);
             }
         };
-        xhttp.open("GET", api.url('/loadfk') + "?fkId=" + fkId, true);
+        xhttp.open("GET", api.url('/soul/loadfk') + "?fkId=" + fkId, true);
         xhttp.setRequestHeader("Content-Type", "application/json");
 
 
@@ -54,7 +54,7 @@ console.log(result);
                 callback();
             }
         };
-        xhttp.open("POST", api.url('/saveData'), true);
+        xhttp.open("POST", api.url('/soul/saveData'), true);
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(result));
     }

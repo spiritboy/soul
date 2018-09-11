@@ -64,6 +64,5 @@ FieldFactory.propTypes = {
     onValueChanged: PropTypes.func,
     onValueChanging: PropTypes.func,
     onExiting: PropTypes.func,
-    onExited: PropTypes.func,
-    value: PropTypes.string
+    onExited: PropTypes.func
 }
