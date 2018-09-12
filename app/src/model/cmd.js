@@ -1,3 +1,5 @@
+/* eslint no-eval: 0 */
+
 import {api} from "../services/api";
 import  "../helper";
 export class cmd {

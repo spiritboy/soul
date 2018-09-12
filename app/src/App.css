@@ -11,11 +11,21 @@ tr.active{
 .red{
     color: darkred;
 }
+button.icon:disabled{
+    color: #979797;
+    background-color: #d7d7e2;
+    cursor: not-allowed;
+}
 button.icon{
-    padding: 2px;
+    width:32px;
+    height:32px;
     background-color: transparent;
     border:0px;
     cursor: pointer;
+    margin: 2px;
+}
+button.icon i{
+    line-height: 30px;
 }
 button.icon:hover{
     background-color: lightgray;

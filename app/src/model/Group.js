@@ -1,5 +1,4 @@
 import {Question} from "./Question";
-import {GroupData} from "./GroupData";
 import {GroupInfo} from "./GroupInfo";
 import {GroupValue} from "./GroupValue";
 
@@ -14,10 +13,20 @@ export class Group {
     isSearch = false;
     inputString;
     groupValues = [];
+    eventIsDirtyChanged=[];
 
     init() {
+        //first remove event handlers frm their memory
+        for(let gv of this.groupValues){
+            gv.destructor();
+        }
         this.groupValues = [];
-        this.groupValues.push(new GroupValue(this))
+        if (this.groupInfo.type === 'form') {
+            var gv = new GroupValue(this);
+            gv.eventIsDirtyChanged.push(this.raiseEventIsDirtyChanged);
+            this.groupValues.push(gv);
+        }
+        this.raiseEventIsDirtyChanged()
     }
 
     deserialize(input, parent) {
@@ -31,21 +40,28 @@ export class Group {
         input.questions.forEach((value) => {
             this.questions.push(new Question().deserialize(value, this));
         });
-        if (this.groupInfo.type === 'form')
-            this.groupValues.push(new GroupValue(this));
+        this.init();
         return this;
     }
 
     deleteGroupValue(groupValue) {
+        let indEvent = groupValue.eventIsDirtyChanged.indexOf(this.eventIsDirtyChanged);
+        if (indEvent > -1) {
+            groupValue.eventIsDirtyChanged.splice(indEvent, 1);
+        }
         let ind = this.groupValues.indexOf(groupValue);
         if (ind >= 0) {
             this.groupValues.splice(ind, 1);
+            this.raiseEventIsDirtyChanged();
         }
     }
 
     addGroupValue(newGroupValue) {
-        if (this.groupValues.indexOf(newGroupValue) < 0)
+        if (this.groupValues.indexOf(newGroupValue) < 0) {
+            newGroupValue.eventIsDirtyChanged.push(this.raiseEventIsDirtyChanged);
             this.groupValues.push(newGroupValue);
+            this.raiseEventIsDirtyChanged();
+        }
     }
 
     normalizeData() {
@@ -70,8 +86,25 @@ export class Group {
         }
 
     }
+    commitValue = () => {
+        for(let gv of this.groupValues)
+            gv.commitValue();
+    };
+    isDirty(){
+        for(let gv of this.groupValues)
+            if(gv.isDirty())
+                return true;
+        return false;
+    }
 
-    loadData(GData) {
-
+    raiseEventIsDirtyChanged =(isDirty)=>{
+        for (let handler of this.eventIsDirtyChanged)
+            handler(this.isDirty());
+    };
+    destructor=()=>{
+        this.eventIsDirtyChanged = [];
+        for(let gv of this.groupValues){
+            gv.destructor();
+        }
     }
 }

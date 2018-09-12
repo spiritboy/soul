@@ -9,11 +9,6 @@ import {api} from "../../services/api";
 import {GroupTable} from "../Group/GroupTable";
 
 export class MenuComponent extends React.Component {
-
-    search = () => {
-        $('#myModal').modal()
-    }
-
     render() {
         return (
             <div className={'container'}>
@@ -23,8 +18,8 @@ export class MenuComponent extends React.Component {
                         <button className='search-button icon' onClick={this.search}>
                             <i className="fa fa-search"/>
                         </button>
-                        <button className={'load-button icon'}>
-                            <i className="fa fa-book-open"/>
+                        <button className={'load-button icon'} onClick={this.clear}>
+                            <i className="fa fa-plus"/>
                         </button>
                     </div>
                     <div className={"clear"}></div>
@@ -55,8 +50,15 @@ export class MenuComponent extends React.Component {
         )
     }
 
-    loadFk = (fkId) => {
+    search = () => {
+        $('#myModal').modal()
+    }
 
+    clear = () => {
+        this.props.menu.init()
+        this.forceUpdate();
+    }
+    loadFk = (fkId) => {
         this.props.menu.init();
         api.loadFK(this.props.menu, fkId, (data) => {
             this.props.menu.fkId = fkId;
@@ -67,7 +69,9 @@ export class MenuComponent extends React.Component {
                         for (const quid in row) {
                             const foundQV = this.props.menu.findQV(guid, quid, i);
                             if (foundQV) {
+                                foundQV.beginSetCommittedValue();
                                 foundQV.value = row[quid];
+                                foundQV.endSetCommittedValue();
                             }
                         }
                         i = i+1;
@@ -77,7 +81,9 @@ export class MenuComponent extends React.Component {
                     for (const quid in data[guid]) {
                         const foundQV = this.props.menu.findQV(guid, quid);
                         if (foundQV) {
+                            foundQV.beginSetCommittedValue();
                             foundQV.value = data[guid][quid];
+                            foundQV.endSetCommittedValue();
                         }
                     }
             }

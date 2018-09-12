@@ -19,8 +19,9 @@ export class SelectField extends _BaseField {
 
     options = [];
     onValueChange = (selectedOption) => {
+
         //this will set the question value to _id
-        this._onValueChange(selectedOption._id);
+        this._onValueChange(selectedOption._id == null ? '' : selectedOption._id.toString());
         //this is for the select field
         this.setState({internalValue: selectedOption})
     };

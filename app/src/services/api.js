@@ -44,6 +44,7 @@ console.log(result);
     }
 
     static saveGroup = (group, callback) => {
+        group.commitValue();
         const result = group.normalizeData();
         console.log(result);
         const xhttp = new XMLHttpRequest();

@@ -1,6 +1,5 @@
 import {Event} from "./Event";
 import {FieldInfo} from "./FieldInfo";
-import {QuestionData} from "./QuestionData";
 
 export class Question {
     parentGroup;

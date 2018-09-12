@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import {Question} from "../../model/Question";
 import {FieldFactory} from "../Field/FieldFactory";
 import {QuestionValue} from "../../model/GroupValue";
 
@@ -18,7 +17,7 @@ export class QuestionComponent extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({questionValue: nextProps.questionValue})
-        if(nextProps.questionValue.onValueChanged.length == 0)
+        if(nextProps.questionValue.onValueChanged.length === 0)
             nextProps.questionValue.onValueChanged.push(this.onQuestionValueChanged)
 
     }

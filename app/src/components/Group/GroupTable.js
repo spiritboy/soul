@@ -8,21 +8,27 @@ import {api} from "../../services/api";
 import {DisplayFieldFactory} from "../Field/DisplayField/DisplayFieldFactory";
 
 export class GroupTable extends React.Component {
-    state = {cols: [], tempGroup: null, groupValues: []};
-
-    constructor(props) {
-        super(props);
-    }
+    state = {
+        cols: [],
+        tempGroup: null,
+        groupValues: [],
+        isDirty: false
+    };
 
     componentWillMount() {
         this.calculateColumns();
+        //listen once
+        this.props.group.eventIsDirtyChanged.push(this.whenDirtyChanged);
         this.setState({groupValues: this.props.group.groupValues == null ? [] : this.props.group.groupValues});
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({groupValues: nextProps.group.groupValues == null ? [] : nextProps.group.groupValues});
     }
-
+    whenDirtyChanged=(isDirty)=>{
+        console.log(isDirty);
+        this.setState({isDirty});
+    };
     render() {
         return (
 
@@ -63,9 +69,9 @@ export class GroupTable extends React.Component {
                 <div>
                     {(this.props.group.isSearch === false) ?
                         <div>
-                            <button className="icon spl-save" onClick={this.save}><i className="fa fa-check"/>
+                            <button className="icon green" disabled={!this.state.isDirty}  onClick={this.save}><i className="fa fa-check"/>
                             </button>
-                            <button className="icon spl-cancel-save" onClick={this.cancel}><i
+                            <button className="icon red" disabled={!this.state.isDirty} onClick={this.cancel}><i
                                 className="fa fa-times"/></button>
                             <button className='icon blue' onClick={this.add}><i className='fa fa-plus'></i></button>
                         </div>
@@ -106,30 +112,29 @@ export class GroupTable extends React.Component {
         api.saveGroup(this.props.group, () => {
             this.setState({loading: false});
         })
-    }
+    };
     ok = () => {
         this.props.group.addGroupValue(this.state.tempGroup);
         $('#modal' + this.props.group.uid).modal('hide');
-        console.log(this.props.group.groupValues.length)
         this.forceUpdate();
-    }
+    };
     delete = (groupValue) => {
         if (window.confirm("آیا از حذف این آیتم مطمئن هستید؟"))
             this.props.group.deleteGroupValue(groupValue);
         this.forceUpdate();
-    }
+    };
     calculateColumns = () => {
         const cols = [];
         for (const q of this.props.group.questions) {
             cols.push(q.title);
         }
         this.setState({cols: cols});
-    }
+    };
     add = () => {
         let newGroup = new GroupValue(this.props.group);
         this.setState({tempGroup: newGroup});
         $('#modal' + this.props.group.uid).modal()
-    }
+    };
 
     edit(editItem) {
         this.setState({tempGroup: editItem});

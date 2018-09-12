@@ -30,8 +30,6 @@ router.post('/searchMenu', function (req, res) {
             res.send(e);
         })
     });
-
-
 });
 
 router.get('/loadFk', function (req, res) {

@@ -17,7 +17,7 @@ export class AsyncSelectField extends _BaseField {
     };
     onValueChange = (selectedOption) => {
         //this will set the question value to _id
-        this._onValueChange(selectedOption._id);
+        this._onValueChange(selectedOption._id == null ? '' : selectedOption._id.toString());
         //this is for the select field
         this.setState({internalValue: selectedOption})
     };
@@ -36,7 +36,7 @@ export class AsyncSelectField extends _BaseField {
         if (newVal != null && newVal!==''){
             this.props.source.options.eval((d) => {
                 this.setState({
-                    internalValue: {label: d[0].label, value: d[0].value}
+                    internalValue: {label: d[0].label, value: d[0]._id.toString()}
                 });
             }, {key: '{filter}', value: newVal})
         }

@@ -27,9 +27,9 @@ export class SelectDisplayField extends React.Component {
         let val = value == null ? '' : value
         if (val != null) {
             this.props.source.options.eval((d) => {
-                let selectedItem = d.find(item => item.value === val)
+                let selectedItem = d.find(item => item._id.toString() === val.toString())
                 this.setState({
-                    label: selectedItem!=null ? selectedItem.label : null, value: selectedItem!=null ? selectedItem.value : null
+                    label: selectedItem!=null ? selectedItem.label : null, value: selectedItem!=null ? selectedItem._id.toString() : null
                 });
             }, {key: '{filter}', value: val})
         }

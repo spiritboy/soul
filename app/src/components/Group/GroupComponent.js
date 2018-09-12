@@ -8,13 +8,22 @@ export class GroupComponent extends React.Component {
 
     state = {
         loading: false,
-        groupValue: null
+        groupValue: null,
+        isDirty:false
     };
 
     componentWillMount() {
         this.setState({groupValue: this.props.groupValue})
+        //listen once
+        this.props.groupValue.group.eventIsDirtyChanged.push(this.whenDirtyChanged);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({groupValue: nextProps.groupValue})
+    }
+    whenDirtyChanged=(isDirty)=>{
+        this.setState({isDirty});
+    };
     save = (e) => {
         e.preventDefault();
         this.setState({loading: true});
@@ -27,9 +36,6 @@ export class GroupComponent extends React.Component {
         this.state.groupValue.group.init();
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({groupValue: nextProps.groupValue})
-    }
     render() {
         if (this.state.groupValue == null) return null;
         return (
@@ -48,9 +54,9 @@ export class GroupComponent extends React.Component {
                     <div>
                         {(this.props.isSearch === false) ?
                             <div>
-                                <button className="icon spl-save" onClick={this.save}><i className="fa fa-check"/>
+                                <button className="icon green" disabled={!this.state.isDirty} onClick={this.save}><i className="fa fa-check"/>
                                 </button>
-                                <button className="icon spl-cancel-save" onClick={this.cancel}><i
+                                <button className="icon red"  disabled={!this.state.isDirty} onClick={this.cancel}><i
                                     className="fa fa-times"/></button>
                             </div>
                             :
