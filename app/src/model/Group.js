@@ -15,6 +15,7 @@ export class Group {
     groupValues = [];
     eventIsDirtyChanged=[];
 
+    //will remove and recreate everything
     init() {
         //first remove event handlers frm their memory
         for(let gv of this.groupValues){
@@ -28,7 +29,21 @@ export class Group {
         }
         this.raiseEventIsDirtyChanged()
     }
-
+    //will clear the values, and preserve the metadata
+    clear() {
+        //first remove event handlers frm their memory
+        if (this.groupInfo.type === 'table') {
+            for(let gv of this.groupValues){
+                gv.destructor();
+            }
+            this.groupValues = [];
+        }
+        else{
+            //form
+            this.groupValues[0].clear();
+        }
+        this.raiseEventIsDirtyChanged()
+    }
     deserialize(input, parent) {
         this.inputString = input;
         this.parentMenu = parent;

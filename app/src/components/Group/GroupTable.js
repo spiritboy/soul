@@ -26,7 +26,6 @@ export class GroupTable extends React.Component {
         this.setState({groupValues: nextProps.group.groupValues == null ? [] : nextProps.group.groupValues});
     }
     whenDirtyChanged=(isDirty)=>{
-        console.log(isDirty);
         this.setState({isDirty});
     };
     render() {

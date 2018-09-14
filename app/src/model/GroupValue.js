@@ -12,6 +12,10 @@ export class GroupValue {
         });
     }
 
+    clear = () => {
+        for(let qv of this.questionValues)
+            qv.clear();
+    }
     destructor = () => {
         this.eventIsDirtyChanged = [];
         for (let qv of this.questionValues) {
@@ -19,9 +23,10 @@ export class GroupValue {
         }
     }
     commitValue = () => {
-        for(let qv of this.questionValues)
+        for (let qv of this.questionValues)
             qv.commitValue();
     };
+
     isDirty() {
         for (let qv of this.questionValues) {
             if (qv.isDirty())
@@ -43,7 +48,7 @@ export class QuestionValue {
     }
 
     _committedValue = '';
-    onValueChanged = [];
+    eventOnValueChanged = [];
     question;
     _value = '';
     eventIsDirtyChanged = [];
@@ -54,14 +59,14 @@ export class QuestionValue {
         this._value = newValue;
         if (this.settingCommittedValue === true)
             this._committedValue = newValue;
-        for (var i = 0; i < this.onValueChanged.length; i++) {
-            this.onValueChanged[i](newValue);
-        }
+        this.raiseEventOnValueChanged(newValue);
         let isDirty2 = this.isDirty();
         if (isDirty1 !== isDirty2)
             this.raiseEventIsDirtyChanged();
     }
-
+    clear = () => {
+        this.value = '';
+    }
     get value() {
         return this._value;
     }
@@ -87,6 +92,11 @@ export class QuestionValue {
             handler(this.isDirty());
     }
 
+    raiseEventOnValueChanged = (newValue) => {
+        for (var i = 0; i < this.eventOnValueChanged.length; i++) {
+            this.eventOnValueChanged[i](newValue);
+        }
+    }
     destructor = () => {
         this.eventIsDirtyChanged = [];
     }

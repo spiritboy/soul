@@ -7,7 +7,9 @@ export class Menu {
     search;
     uid;
     fkId = 0;
-
+    eventInited = [];
+    eventDoUpdate = [];
+    eventCleared = [];
     deserialize(input) {
         if (!input) return this;
         this.uid = input.uid;
@@ -33,16 +35,23 @@ export class Menu {
         this.groups.forEach((v, i) => {
             v.init();
         })
+        this.raiseEventInited();
     }
-
+    clear() {
+        this.fkId = 0;
+        this.groups.forEach((v, i) => {
+            v.clear();
+        })
+        this.raiseEventCleared();
+    }
     findQV(guid, quid, row) {
         if (!row) row = 0;
-
         for (let g of this.groups) {
             if (g.uid === guid) {
                 if (g.groupValues.length === row) {
                     //add new groupValue
                     g.addGroupValue(new GroupValue(g));
+                    this.raiseEventDoUpdate()
                 }
                 for (let qv of g.groupValues[row].questionValues) {
                     if (qv.question.uid === quid) {
@@ -52,5 +61,18 @@ export class Menu {
             }
         }
         return null;
+    }
+
+    raiseEventDoUpdate = () => {
+        for (let handler of this.eventDoUpdate)
+            handler();
+    }
+    raiseEventInited = () => {
+        for (let handler of this.eventInited)
+            handler();
+    }
+    raiseEventCleared = () => {
+        for (let handler of this.eventCleared)
+            handler();
     }
 }

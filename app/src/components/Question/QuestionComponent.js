@@ -6,7 +6,7 @@ import {QuestionValue} from "../../model/GroupValue";
 export class QuestionComponent extends React.Component {
     constructor(props) {
         super(props);
-        props.questionValue.onValueChanged.push(this.onQuestionValueChanged);
+        props.questionValue.eventOnValueChanged.push(this.onQuestionValueChanged);
         props.questionValue.question.forceUpdate = this.onQuestionForceUpdate;
         this.fieldFactory = React.createRef();
     }
@@ -17,8 +17,8 @@ export class QuestionComponent extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({questionValue: nextProps.questionValue})
-        if(nextProps.questionValue.onValueChanged.length === 0)
-            nextProps.questionValue.onValueChanged.push(this.onQuestionValueChanged)
+        if(nextProps.questionValue.eventOnValueChanged.length === 0)
+            nextProps.questionValue.eventOnValueChanged.push(this.onQuestionValueChanged)
 
     }
 

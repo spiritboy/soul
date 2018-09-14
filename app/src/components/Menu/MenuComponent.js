@@ -9,6 +9,11 @@ import {api} from "../../services/api";
 import {GroupTable} from "../Group/GroupTable";
 
 export class MenuComponent extends React.Component {
+    constructor(props){
+        super(props);
+        this.props.menu.eventInited.push(this.onMenuInited);
+        this.props.menu.eventDoUpdate.push(this.onMenuDoUpdate);
+    }
     render() {
         return (
             <div className={'container'}>
@@ -52,10 +57,15 @@ export class MenuComponent extends React.Component {
 
     search = () => {
         $('#myModal').modal()
-    }
+    };
 
     clear = () => {
         this.props.menu.init()
+    };
+    onMenuInited = ()=>{
+        this.forceUpdate();
+    }
+    onMenuDoUpdate = ()=>{
         this.forceUpdate();
     }
     loadFk = (fkId) => {
