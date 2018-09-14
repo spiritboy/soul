@@ -1,5 +1,6 @@
 import {Event} from "./Event";
 import {FieldInfo} from "./FieldInfo";
+import {QuestionValidation} from "./QuestionValidation";
 
 export class Question {
     parentGroup;
@@ -10,6 +11,7 @@ export class Question {
     events;
     _title;
     forceUpdate;
+    validation;
     set title(newValue) {
         this._title = newValue;
         if(this.forceUpdate != null)
@@ -34,6 +36,7 @@ export class Question {
             this.uid = this.parentGroup.parentMenu.uid + '.' + this.groupUid + '.' + this.uid;
         this.fieldInfo = new FieldInfo().deserialize(input.fieldInfo, this);
         this.events = new Event().deserialize(input.events, this);
+        this.validation = new QuestionValidation().deserialize(input.validation, this);
         return this;
     }
 }

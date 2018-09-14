@@ -6,6 +6,11 @@ export class TextField extends _BaseField {
     state = {
         value: this.props.value == null ? '' : this.props.value
     };
+    keyDown = (e)=>{
+        //escape
+      if(e.keyCode === 27)
+          this.cancelEdit()
+    };
     componentWillMount() {
         this.setState({value: this.props.value == null ? '' : this.props.value.toString()})
     }
@@ -20,7 +25,7 @@ export class TextField extends _BaseField {
 
     render() {
         return (
-            <input onBlur={this.onBlur} onFocus={this.onFocus} value={this.state.value} onChange={this.onValueChanged}
+            <input onBlur={this.onBlur} onFocus={this.onFocus} onKeyDown={this.keyDown} value={this.state.value} onChange={this.onValueChanged}
                    className={"form-control"}/>
         )
     }
@@ -34,5 +39,6 @@ TextField.propTypes = {
     onExited: PropTypes.func,
     onEntering: PropTypes.func,
     onEntered: PropTypes.func,
+    onCancelEdit: PropTypes.func,
     value: PropTypes.string
 }

@@ -5,14 +5,17 @@ import "../helper";
 import {SetValueCommand} from "./commands/SetValueCommand";
 import {MessageCommand} from "./commands/MessageCommand";
 import {FocusCommand} from "./commands/FocusCommand";
-import {InitCommand} from "./commands/InitCommand";
 import {ClearCommand} from "./commands/ClearCommand";
+import {SaveCommand} from "./commands/SaveCommand";
 
 export class cmd {
     url;
     script;
     parent;
-    getMenu=()=>{return this.parent.parentGroup.parentMenu;}
+    getMenu = () => {
+        return this.parent.parentGroup.parentMenu;
+    }
+
     findQuestion(guid, quid, row) {
         return this.getMenu().findQV(guid, quid, row);
     }
@@ -38,27 +41,27 @@ export class cmd {
         }
     };
 
-    execute=(commands)=>{
+    execute = (commands) => {
         for (let command of commands) {
-            if(command.name.toLowerCase() === 'setvalue'){
-                var cmd = new SetValueCommand(command.qValue,this.getMenu(),command.guid,command.quid,command.row,command.value);
+            if (command.name.toLowerCase() === 'setvalue') {
+                var cmd = new SetValueCommand(command.qValue, this.getMenu(), command);
                 cmd.execute();
             }
-            else if(command.name.toLowerCase() === 'message'){
+            else if (command.name.toLowerCase() === 'message') {
                 var cmd = new MessageCommand();
                 cmd.execute(command.value);
             }
-            else if(command.name.toLowerCase() === 'focus'){
+            else if (command.name.toLowerCase() === 'focus') {
                 var cmd = new FocusCommand();
                 cmd.execute(command.qValue);
             }
-            else if(command.name.toLowerCase() === 'init'){
-                var cmd = new InitCommand();
-                cmd.execute(this.getMenu());
+            else if (command.name.toLowerCase() === 'save') {
+                var cmd = new SaveCommand(this.getMenu(), command);
+                cmd.execute();
             }
-            else if(command.name.toLowerCase() === 'clear'){
-                var cmd = new ClearCommand();
-                cmd.execute(this.getMenu());
+            else if (command.name.toLowerCase() === 'clear') {
+                var cmd = new ClearCommand(this.getMenu(), command);
+                cmd.execute();
             }
         }
         //we need an update after commands execution ...

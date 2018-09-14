@@ -9,31 +9,44 @@ export class GroupComponent extends React.Component {
     state = {
         loading: false,
         groupValue: null,
-        isDirty:false
+        isDirty: false,
+        isValid:true
     };
 
     componentWillMount() {
         this.setState({groupValue: this.props.groupValue})
         //listen once
         this.props.groupValue.group.eventIsDirtyChanged.push(this.whenDirtyChanged);
+        this.props.groupValue.group.eventSaving.push(this.onGroupSavingHandler);
+        this.props.groupValue.group.eventSaved.push(this.onGroupSavedHandler);
+        this.props.groupValue.group.eventLoading.push(this.onGroupLoadingHandler);
+        this.props.groupValue.eventOnValidChanged.push(this.whenValidChanged);
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({groupValue: nextProps.groupValue})
     }
-    whenDirtyChanged=(isDirty)=>{
+    whenValidChanged = (isValid) => {
+        this.setState({isValid});
+    };
+    whenDirtyChanged = (isDirty) => {
         this.setState({isDirty});
     };
     save = (e) => {
         e.preventDefault();
-        this.setState({loading: true});
-        api.saveGroup(this.state.groupValue.group, () => {
-            this.setState({loading: false});
-        })
+        this.props.groupValue.group.save();
+    };
+    onGroupLoadingHandler = (isLoading) => {
+        this.setState({loading: isLoading});
+    }
+    onGroupSavingHandler = () => {
+        return true;
+    }
+    onGroupSavedHandler = () => {
     }
     cancel = (e) => {
         e.preventDefault();
-        this.state.groupValue.group.init();
+        this.state.groupValue.rollbackValue();
     }
 
     render() {
@@ -54,9 +67,10 @@ export class GroupComponent extends React.Component {
                     <div>
                         {(this.props.isSearch === false) ?
                             <div>
-                                <button className="icon green" disabled={!this.state.isDirty} onClick={this.save}><i className="fa fa-check"/>
+                                <button className="icon green" disabled={!this.state.isDirty || !this.state.isValid} onClick={this.save}><i
+                                    className="fa fa-check"/>
                                 </button>
-                                <button className="icon red"  disabled={!this.state.isDirty} onClick={this.cancel}><i
+                                <button className="icon red" disabled={!this.state.isDirty} onClick={this.cancel}><i
                                     className="fa fa-times"/></button>
                             </div>
                             :

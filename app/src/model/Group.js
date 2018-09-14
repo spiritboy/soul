@@ -1,6 +1,7 @@
 import {Question} from "./Question";
 import {GroupInfo} from "./GroupInfo";
 import {GroupValue} from "./GroupValue";
+import {api} from "../services/api";
 
 export class Group {
     parentMenu;
@@ -13,12 +14,15 @@ export class Group {
     isSearch = false;
     inputString;
     groupValues = [];
-    eventIsDirtyChanged=[];
+    eventIsDirtyChanged = [];
+    eventSaving = [];
+    eventSaved = [];
+    eventLoading = [];
 
     //will remove and recreate everything
     init() {
         //first remove event handlers frm their memory
-        for(let gv of this.groupValues){
+        for (let gv of this.groupValues) {
             gv.destructor();
         }
         this.groupValues = [];
@@ -29,21 +33,23 @@ export class Group {
         }
         this.raiseEventIsDirtyChanged()
     }
+
     //will clear the values, and preserve the metadata
     clear() {
         //first remove event handlers frm their memory
         if (this.groupInfo.type === 'table') {
-            for(let gv of this.groupValues){
+            for (let gv of this.groupValues) {
                 gv.destructor();
             }
             this.groupValues = [];
         }
-        else{
+        else {
             //form
             this.groupValues[0].clear();
         }
         this.raiseEventIsDirtyChanged()
     }
+
     deserialize(input, parent) {
         this.inputString = input;
         this.parentMenu = parent;
@@ -93,7 +99,7 @@ export class Group {
         }
 
         arr = this.groupInfo.type === 'table' ? arr : arr[0];
-        return{
+        return {
             data: arr,
             fkId: this.parentMenu.fkId,
             groupUid: this.uid,
@@ -101,24 +107,53 @@ export class Group {
         }
 
     }
+
+    save = (callback) => {
+        if (this.raiseEventSaving() === true) {
+            this.raiseEventLoading(true);
+            api.saveGroup(this, () => {
+                if (callback != null) callback(true);
+                this.raiseEventSaved();
+                this.raiseEventLoading(false)
+            })
+        }
+    }
     commitValue = () => {
-        for(let gv of this.groupValues)
+        for (let gv of this.groupValues)
             gv.commitValue();
     };
-    isDirty(){
-        for(let gv of this.groupValues)
-            if(gv.isDirty())
+
+    isDirty() {
+        for (let gv of this.groupValues)
+            if (gv.isDirty())
                 return true;
         return false;
     }
 
-    raiseEventIsDirtyChanged =(isDirty)=>{
+    raiseEventIsDirtyChanged = (isDirty) => {
         for (let handler of this.eventIsDirtyChanged)
             handler(this.isDirty());
     };
-    destructor=()=>{
+    raiseEventSaving = () => {
+        let saving = true;
+        for (let handler of this.eventSaving) {
+            let ret = handler();
+            if (ret != null && ret == false)
+                saving = false;
+        }
+        return saving;
+    };
+    raiseEventSaved = () => {
+        for (let handler of this.eventSaved)
+            handler();
+    };
+    raiseEventLoading = (isLoading) => {
+        for (let handler of this.eventLoading)
+            handler(isLoading);
+    };
+    destructor = () => {
         this.eventIsDirtyChanged = [];
-        for(let gv of this.groupValues){
+        for (let gv of this.groupValues) {
             gv.destructor();
         }
     }

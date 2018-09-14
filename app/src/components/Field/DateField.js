@@ -33,5 +33,6 @@ DateField.propTypes = {
     onExited: PropTypes.func,
     onEntering: PropTypes.func,
     onEntered: PropTypes.func,
+    onCancelEdit: PropTypes.func,
     value: PropTypes.string
 }

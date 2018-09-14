@@ -68,6 +68,7 @@ AsyncSelectField.propTypes = {
     onExited: PropTypes.func,
     onEntering: PropTypes.func,
     onEntered: PropTypes.func,
+    onCancelEdit: PropTypes.func,
     source: PropTypes.instanceOf(Source),
     value: PropTypes.string
 }

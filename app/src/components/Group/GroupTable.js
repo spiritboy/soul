@@ -7,8 +7,10 @@ import {GroupValue} from "../../model/GroupValue";
 import {api} from "../../services/api";
 import {DisplayFieldFactory} from "../Field/DisplayField/DisplayFieldFactory";
 
+
 export class GroupTable extends React.Component {
     state = {
+        loading:false,
         cols: [],
         tempGroup: null,
         groupValues: [],
@@ -19,15 +21,37 @@ export class GroupTable extends React.Component {
         this.calculateColumns();
         //listen once
         this.props.group.eventIsDirtyChanged.push(this.whenDirtyChanged);
+        this.props.group.eventSaving.push(this.onGroupSavingHandler);
+        this.props.group.eventSaved.push(this.onGroupSavedHandler);
+        this.props.group.eventLoading.push(this.onGroupLoadingHandler);
         this.setState({groupValues: this.props.group.groupValues == null ? [] : this.props.group.groupValues});
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({groupValues: nextProps.group.groupValues == null ? [] : nextProps.group.groupValues});
     }
-    whenDirtyChanged=(isDirty)=>{
+
+    whenDirtyChanged = (isDirty) => {
         this.setState({isDirty});
     };
+    save = (e) => {
+        e.preventDefault();
+        this.props.group.save();
+    };
+    onGroupLoadingHandler = (isLoading) => {
+        this.setState({loading: isLoading});
+    }
+    onGroupSavingHandler = () => {
+        return true;
+    }
+    onGroupSavedHandler = () => {
+    }
+    cancel = (e) => {
+        e.preventDefault();
+        for(let gv of this.props.group.groupValues){
+            gv.rollbackValue();
+        }
+    }
     render() {
         return (
 
@@ -68,7 +92,8 @@ export class GroupTable extends React.Component {
                 <div>
                     {(this.props.group.isSearch === false) ?
                         <div>
-                            <button className="icon green" disabled={!this.state.isDirty}  onClick={this.save}><i className="fa fa-check"/>
+                            <button className="icon green" disabled={!this.state.isDirty} onClick={this.save}><i
+                                className="fa fa-check"/>
                             </button>
                             <button className="icon red" disabled={!this.state.isDirty} onClick={this.cancel}><i
                                 className="fa fa-times"/></button>
@@ -100,18 +125,14 @@ export class GroupTable extends React.Component {
                         </div>
                     </div>
                 </div>
-
+                <div style={{
+                    position: "absolute", left: 0, right: 0, top: 0, bottom: 0, backgroundColor: "red",
+                    display: this.state.loading ? "block" : "none"
+                }}></div>
             </div>
         )
     }
 
-    save = (e) => {
-        e.preventDefault();
-        this.setState({loading: true});
-        api.saveGroup(this.props.group, () => {
-            this.setState({loading: false});
-        })
-    };
     ok = () => {
         this.props.group.addGroupValue(this.state.tempGroup);
         $('#modal' + this.props.group.uid).modal('hide');

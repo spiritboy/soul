@@ -28,29 +28,29 @@ export class FieldFactory extends React.Component {
     }
 
     render() {
-        var {onValueChanging, onValueChanged, onExited, onExiting, onEntered, onEntering} = this.props;
+        var {onValueChanging, onValueChanged, onExited, onExiting, onEntered, onEntering, onCancelEdit} = this.props;
         let field = null;
         if (this.state.questionValue.question.fieldInfo.type === 'text')
             field = <TextField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited}
-                               onExiting={onExiting}
+                               onExiting={onExiting} onCancelEdit={onCancelEdit}
                                onValueChanged={onValueChanged} onValueChanging={onValueChanging}
                                value={this.state.questionValue.value}
             />
         else if (this.state.questionValue.question.fieldInfo.type === 'date')
             field = <DateField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited}
-                               onExiting={onExiting}
+                               onExiting={onExiting} onCancelEdit={onCancelEdit}
                                onValueChanged={onValueChanged} onValueChanging={onValueChanging}
                                value={this.state.questionValue.value}
             />
         else if (this.state.questionValue.question.fieldInfo.type === 'asyncSelect')
             field = <AsyncSelectField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited}
-                                      onExiting={onExiting}
+                                      onExiting={onExiting} onCancelEdit={onCancelEdit}
                                       source={this.state.questionValue.question.fieldInfo.source} onValueChanged={onValueChanged}
                                       onValueChanging={onValueChanging} value={this.state.questionValue.value}
             />
         else if (this.state.questionValue.question.fieldInfo.type === 'select')
             field = <SelectField ref={this.field} onEntered={onEntered} onEntering={onEntering} onExited={onExited}
-                                      onExiting={onExiting}
+                                      onExiting={onExiting} onCancelEdit={onCancelEdit}
                                       source={this.state.questionValue.question.fieldInfo.source} onValueChanged={onValueChanged}
                                       onValueChanging={onValueChanging} value={this.state.questionValue.value}
             />
@@ -64,5 +64,6 @@ FieldFactory.propTypes = {
     onValueChanged: PropTypes.func,
     onValueChanging: PropTypes.func,
     onExiting: PropTypes.func,
-    onExited: PropTypes.func
+    onExited: PropTypes.func,
+    onCancelEdit: PropTypes.func
 }

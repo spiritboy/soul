@@ -2,6 +2,12 @@ tr.active{
     background-color: #0c5460;
     color:white;
 }
+.invalid{
+    color:red;
+}
+.invalid .form-control{
+    border-color:red;
+}
 .green{
     color:green;
 }

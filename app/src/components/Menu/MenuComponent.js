@@ -93,6 +93,7 @@ export class MenuComponent extends React.Component {
                         if (foundQV) {
                             foundQV.beginSetCommittedValue();
                             foundQV.value = data[guid][quid];
+                            console.log(data[guid][quid]);
                             foundQV.endSetCommittedValue();
                         }
                     }

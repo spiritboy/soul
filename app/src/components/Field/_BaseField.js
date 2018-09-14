@@ -40,4 +40,7 @@ export class _BaseField extends React.Component {
                 this.props.onValueChanged(prevValue, newValue);
         }
     };
+    cancelEdit=()=>{
+        this.props.onCancelEdit();
+    }
 }

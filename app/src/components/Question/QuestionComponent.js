@@ -12,21 +12,32 @@ export class QuestionComponent extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({questionValue: this.props.questionValue})
+        this.setState({
+            questionValue: this.props.questionValue,
+            isValid: this.props.questionValue.isValid
+        })
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({questionValue: nextProps.questionValue})
-        if(nextProps.questionValue.eventOnValueChanged.length === 0)
+        this.setState({
+            questionValue: nextProps.questionValue,
+            isValid: this.props.questionValue.isValid
+        })
+        if (nextProps.questionValue.eventOnValueChanged.length === 0)
             nextProps.questionValue.eventOnValueChanged.push(this.onQuestionValueChanged)
+        if (nextProps.questionValue.eventOnValidChanged.length === 0)
+            nextProps.questionValue.eventOnValidChanged.push(this.onValidChanged)
 
     }
 
     render() {
         return (
             <div>
-                <div className={"form-group"}>
-                    <label className={"control-label"}>{this.state.questionValue.question.title}</label>
+                <div className={"form-group" + (this.state.isValid?"":" invalid")}>
+                    <label className={"control-label"}>
+                        {this.state.questionValue.question.title}
+                        <span style={{color: 'red'}} hidden={this.state.isValid}>*</span>
+                    </label>
                     <FieldFactory ref={this.fieldFactory} onValueChanged={this.onValueChanged}
                                   onValueChanging={this.onValueChanging}
                                   onQuestionValueChanged={this.onQuestionValueChanged}
@@ -34,6 +45,7 @@ export class QuestionComponent extends React.Component {
                                   onEntered={this.onEntered}
                                   onExiting={this.onExiting}
                                   onExited={this.onExited}
+                                  onCancelEdit={this.onCancelEdit}
                                   questionValue={this.state.questionValue}/>
                 </div>
             </div>
@@ -42,6 +54,9 @@ export class QuestionComponent extends React.Component {
 
     onQuestionForceUpdate = () => {
         this.forceUpdate();
+    };
+    onValidChanged = () => {
+        this.setState({isValid: this.props.questionValue.isValid})
     };
     onQuestionValueChanged = (newValue) => {
         this.fieldFactory.current.onShouldChangeValue(newValue)
@@ -53,6 +68,7 @@ export class QuestionComponent extends React.Component {
         this.props.questionValue.value = newValue;
     };
     onExiting = () => {
+        this.props.questionValue.checkValidation();
         var valid = null;
         if (this.props.questionValue.question.events.onExiting != null)
             valid = this.props.questionValue.question.events.onExiting.evalSync();
@@ -71,6 +87,9 @@ export class QuestionComponent extends React.Component {
     onEntered = () => {
         if (this.props.questionValue.question.events.onEntered != null)
             this.props.questionValue.question.events.onEntered.evalSync();
+    };
+    onCancelEdit = () => {
+        this.props.questionValue.rollbackValue();
     };
 }
 
