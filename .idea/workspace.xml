@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="1ad0431a-de84-45c4-844d-4de9521ff107" name="Default Changelist" comment="Default Changelist">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/App.js" afterDir="false" />
@@ -8,6 +9,9 @@
       <change beforePath="$PROJECT_DIR$/app/src/services/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/services/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/db.js" afterDir="false" />
     </list>
+=======
+    <list default="true" id="1ad0431a-de84-45c4-844d-4de9521ff107" name="Default Changelist" comment="Default Changelist" />
+>>>>>>> Stashed changes
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -418,13 +422,21 @@
       <workItem from="1536761742799" duration="10217000" />
       <workItem from="1536882072679" duration="3097000" />
       <workItem from="1536887791181" duration="938000" />
+<<<<<<< Updated upstream
       <workItem from="1536919687466" duration="13783000" />
       <workItem from="1536999836653" duration="178000" />
+=======
+      <workItem from="1536919687466" duration="14336000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="85589000" />
+=======
+    <option name="totallyTimeSpent" value="85099000" />
+>>>>>>> Stashed changes
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -436,10 +448,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< Updated upstream
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15145755" />
+=======
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32884097" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32838285" />
+      <window_info anchor="right" id="Mongo Explorer" order="3" weight="0.32980332" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.31023103" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19288956" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24962178" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32838285" />
+>>>>>>> Stashed changes
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
