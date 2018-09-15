@@ -24,7 +24,6 @@ export class api {
         xhttp.open("POST", api.url('/soul/searchMenu'), true);
         xhttp.setRequestHeader("Content-Type", "application/json");
 
-console.log(result);
         xhttp.send(JSON.stringify(result));
     }
 

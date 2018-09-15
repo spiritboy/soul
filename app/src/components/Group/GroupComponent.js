@@ -16,6 +16,7 @@ export class GroupComponent extends React.Component {
     componentWillMount() {
         this.setState({groupValue: this.props.groupValue})
         //listen once
+        console.log(this.props.groupValue)
         this.props.groupValue.group.eventIsDirtyChanged.push(this.whenDirtyChanged);
         this.props.groupValue.group.eventSaving.push(this.onGroupSavingHandler);
         this.props.groupValue.group.eventSaved.push(this.onGroupSavedHandler);

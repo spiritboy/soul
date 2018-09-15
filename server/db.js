@@ -1,8 +1,9 @@
 var Promise = require("promise");
 var mongod = require('mongodb');
 var mongoClient = mongod.MongoClient, db;
-mongoClient.connect('mongodb://127.0.0.1/').then(function (con) {
-    db = con.db('spl');
+mongoClient.connect('mongodb://spiritboy:aminspiritboy2@ds257732.mlab.com:57732/soul').then(function (con) {
+    db = con.db('soul');
+    console.log(db);
     console.log("db running");
 });
 module.exports.getDataBase=()=>{
