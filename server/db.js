@@ -81,7 +81,20 @@ module.exports.search = (query, projection) => {
         })
     });
 }
-
+//will list all  the available menus
+module.exports.menus = () => {
+    return new Promise(function (fulfill, reject) {
+        db.collection('definition').find().project({
+            _id: 1,
+            uid: 1,
+            title:1
+        }).toArray().then(function (data) {
+                fulfill(data);
+            }).catch(function (e) {
+            reject(e);
+        })
+    });
+}
 function getNextSequence(name) {
     return db.collection('counters').findAndModify({_id: name}, null, {$inc: {seq: 1}});
 }
