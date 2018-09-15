@@ -1,5 +1,6 @@
 import {Group} from "./Group";
 import {GroupValue} from "./GroupValue";
+import {Text} from "./Text";
 
 export class Menu {
     title;
@@ -14,7 +15,7 @@ export class Menu {
     deserialize(input) {
         if (!input) return this;
         this.uid = input.uid;
-        this.title = input.title;
+        this.title = new Text().deserialize(input.title);
         this.uid = input.uid;
         input.groups.forEach((value) => {
             this.groups.push(new Group().deserialize(value, this));

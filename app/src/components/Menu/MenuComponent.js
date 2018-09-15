@@ -18,7 +18,7 @@ export class MenuComponent extends React.Component {
         return (
             <div className={'container'}>
                 <header>
-                    <h1>{this.props.menu.title}</h1>
+                    <h1>{this.props.menu.title.value}</h1>
                     <div className={'div-buttons'}>
                         <button className='search-button icon' onClick={this.search}>
                             <i className="fa fa-search"/>

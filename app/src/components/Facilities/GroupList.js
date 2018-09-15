@@ -14,7 +14,7 @@ export class GroupList extends React.Component {
                            aria-controls={"v-pills-" + gr.uid} aria-selected="true"
                            href={'#' + gr.uid}>
                             <div>
-                                <span>{gr.title}</span>
+                                <span>{gr.title.value}</span>
                             </div>
                         </a>
                     )

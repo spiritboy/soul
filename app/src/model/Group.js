@@ -2,6 +2,7 @@ import {Question} from "./Question";
 import {GroupInfo} from "./GroupInfo";
 import {GroupValue} from "./GroupValue";
 import {api} from "../services/api";
+import {Text} from "./Text";
 
 export class Group {
     parentMenu;
@@ -54,7 +55,7 @@ export class Group {
         this.inputString = input;
         this.parentMenu = parent;
         if (!input) return this;
-        this.title = input.title;
+        this.title = new Text().deserialize(input.title);
         this.type = input.type;
         this.uid = input.uid;
         this.groupInfo = new GroupInfo().deserialize(input.groupInfo);

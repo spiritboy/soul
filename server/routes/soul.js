@@ -12,7 +12,7 @@ router.post('/saveData', function (req, res) {
         res.send(d);
     });
 });
-router.get('/getdefinition', function (req, res) {
+router.get('/getdefinition/:language?', function (req, res) {
     db.getDefinition().then(function (d) {
         res.send(d);
     });

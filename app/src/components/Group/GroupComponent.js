@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import {QuestionComponent} from "../Question/QuestionComponent";
-import {api} from "../../services/api";
 import {GroupValue} from "../../model/GroupValue";
 
 export class GroupComponent extends React.Component {

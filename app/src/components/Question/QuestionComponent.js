@@ -35,7 +35,7 @@ export class QuestionComponent extends React.Component {
             <div>
                 <div className={"form-group" + (this.state.isValid?"":" invalid")}>
                     <label className={"control-label"}>
-                        {this.state.questionValue.question.title}
+                        {this.state.questionValue.question.title.value}
                         <span style={{color: 'red'}} hidden={this.state.isValid}>*</span>
                     </label>
                     <FieldFactory ref={this.fieldFactory} onValueChanged={this.onValueChanged}

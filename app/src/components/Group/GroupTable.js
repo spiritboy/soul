@@ -4,7 +4,6 @@ import {Group} from "../../model/Group";
 import PropTypes from "prop-types";
 import {GroupComponent} from "./GroupComponent";
 import {GroupValue} from "../../model/GroupValue";
-import {api} from "../../services/api";
 import {DisplayFieldFactory} from "../Field/DisplayField/DisplayFieldFactory";
 
 
@@ -146,7 +145,7 @@ export class GroupTable extends React.Component {
     calculateColumns = () => {
         const cols = [];
         for (const q of this.props.group.questions) {
-            cols.push(q.title);
+            cols.push(q.title.value);
         }
         this.setState({cols: cols});
     };

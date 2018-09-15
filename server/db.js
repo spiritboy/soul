@@ -10,7 +10,7 @@ module.exports.getDataBase=()=>{
     return db;
 }
 //will return the full definition if a menu from the database
-module.exports.getDefinition = function () {
+module.exports.getDefinition = function (language) {
     var o_id = new mongod.ObjectID('5b409b7aacfc2c2ab4e7db2d');
     return new Promise(function (fulfill, reject) {
         db.collection('definition').find({_id: o_id}).toArray().then(function (data) {

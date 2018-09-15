@@ -1,6 +1,7 @@
 import {Event} from "./Event";
 import {FieldInfo} from "./FieldInfo";
 import {QuestionValidation} from "./QuestionValidation";
+import {Text} from "./Text";
 
 export class Question {
     parentGroup;
@@ -29,7 +30,7 @@ export class Question {
     deserialize(input, parent) {
         this.parentGroup = parent;
         if (!input) return this;
-        this.title = input.title;
+        this.title = new Text().deserialize(input.title);
         this.uid = input.uid;
         this.groupUid = input.groupUid;
         if (this.groupUid)
