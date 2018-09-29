@@ -1,7 +1,8 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {api} from "../services/api";
-import MenuList from "../components/MenuList";
+import "../components/Main";
+import Main from "../components/Main";
 
 export class Index extends React.Component {
     state = {
@@ -14,7 +15,7 @@ export class Index extends React.Component {
 
     render() {
         return (<Router>
-            <MenuList/>
+            <Main/>
         </Router>);
     }
 }

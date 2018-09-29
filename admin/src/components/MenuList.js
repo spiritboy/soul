@@ -5,6 +5,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListAltIcon from '@material-ui/icons/ListAlt';
+import EditIcon from '@material-ui/icons/Edit';
+import RemoveIcon from '@material-ui/icons/Remove';
 import BallotIcon from '@material-ui/icons/Ballot';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -17,16 +19,16 @@ import {api} from "../services/api";
 import Collapse from "@material-ui/core/es/Collapse/Collapse";
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import {ContextMenu, MenuItem, ContextMenuTrigger} from "react-contextmenu";
 
 const styles = theme => ({
     root: {
-        width: '100%',
-        maxWidth: 250,
+        width: "100%",
         backgroundColor: theme.palette.background.paper,
     },
     nested: {
         paddingLeft: theme.spacing.unit * 4,
-    },
+    }
 });
 
 class MenuList extends React.Component {
@@ -91,6 +93,9 @@ class MenuList extends React.Component {
             return <BallotIcon/>
         }
     }
+    handleClick = (e, data) => {
+        console.log(data.foo);
+    }
 
     render() {
         const {classes} = this.props;
@@ -106,19 +111,20 @@ class MenuList extends React.Component {
                 >
                     {this.doFilterMenu().map(menu =>
                         (<div>
+                                <ContextMenuTrigger id="some_unique_identifier">
 
-
-                                <ListItem button onClick={() => {
-                                    menu.open = !menu.open;
-                                    this.forceUpdate()
-                                }}>
-                                    <ListItemIcon>
-                                        <MenuIcon/>
-                                    </ListItemIcon>
-                                    <ListItemText inset primary={menu.title.fa}
-                                                  className={(menu.found === true ? "highlight" : "")}/>
-                                    {menu.open || menu.expanded ? <ExpandLess/> : <ExpandMore/>}
-                                </ListItem>
+                                    <ListItem button onClick={() => {
+                                        menu.open = !menu.open;
+                                        this.forceUpdate()
+                                    }}>
+                                        <ListItemIcon>
+                                            <MenuIcon/>
+                                        </ListItemIcon>
+                                        <ListItemText inset primary={menu.title.fa}
+                                                      className={(menu.found === true ? "highlight" : "")}/>
+                                        {menu.open || menu.expanded ? <ExpandLess/> : <ExpandMore/>}
+                                    </ListItem>
+                                </ContextMenuTrigger>
                                 <Collapse in={menu.open || menu.expanded} timeout="auto" unmountOnExit
                                           style={{"padding-right": "20px"}}>
                                     <List component="div" disablePadding>
@@ -162,6 +168,26 @@ class MenuList extends React.Component {
                     )}
 
                 </List>
+                <ContextMenu id="some_unique_identifier">
+                    <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
+                        <ListItem style={{padding:0}}>
+                            <ListItemIcon>
+                                <EditIcon  style={{backgroundColor:"red"}}/>
+                            </ListItemIcon>
+                            <ListItemText dense={true} inset primary="ویرایش" />
+                        </ListItem>
+                    </MenuItem>
+                    <MenuItem divider/>
+                    <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
+                        <ListItem style={{padding:0}} >
+                            <ListItemIcon>
+                                <RemoveIcon/>
+                            </ListItemIcon>
+                            <ListItemText dense={true} inset primary="حذف" />
+                        </ListItem>
+                    </MenuItem>
+
+                </ContextMenu>
             </div>
         );
     }
