@@ -20,6 +20,7 @@ const styles = theme => ({
 });
 
 class Main extends React.Component {
+
     render() {
         const {classes} = this.props;
         return (
@@ -27,8 +28,8 @@ class Main extends React.Component {
                 <div className={classes.side}>
                     <MenuList/>
                 </div>
-                <div  className={classes.content}>
-                    <EditMenu/>
+                <div className={classes.content}>
+                    <EditMenu menu={'sasa'}/>
                 </div>
 
             </div>

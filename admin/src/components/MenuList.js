@@ -7,6 +7,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import EditIcon from '@material-ui/icons/Edit';
 import RemoveIcon from '@material-ui/icons/Remove';
+import CloseIcon from '@material-ui/icons/Close';
 import BallotIcon from '@material-ui/icons/Ballot';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -172,18 +173,18 @@ class MenuList extends React.Component {
                     <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
                         <ListItem style={{padding:0}}>
                             <ListItemIcon>
-                                <EditIcon  style={{backgroundColor:"red"}}/>
+                                <EditIcon  style={{color:"darkblue"}}/>
                             </ListItemIcon>
-                            <ListItemText dense={true} inset primary="ویرایش" />
+                            <ListItemText inset primary="ویرایش" />
                         </ListItem>
                     </MenuItem>
                     <MenuItem divider/>
                     <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
                         <ListItem style={{padding:0}} >
                             <ListItemIcon>
-                                <RemoveIcon/>
+                                <CloseIcon style={{color:"darkred"}}/>
                             </ListItemIcon>
-                            <ListItemText dense={true} inset primary="حذف" />
+                            <ListItemText  inset primary="حذف"/>
                         </ListItem>
                     </MenuItem>
 

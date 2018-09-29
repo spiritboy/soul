@@ -1,17 +1,18 @@
 import React from 'react';
 
 export class EditMenu extends React.Component {
-    state = {
-        menu: null
-    };
 
     componentWillMount() {
     }
- render(){
-        return(
+    componentWillReceiveProps(){
+        this.forceUpdate();
+    }
+
+    render() {
+        return (
             <div>
-                MENU
+                {this.props.menu}
             </div>
         )
- }
+    }
 }
