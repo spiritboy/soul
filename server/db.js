@@ -3,7 +3,6 @@ var mongod = require('mongodb');
 var mongoClient = mongod.MongoClient, db;
 mongoClient.connect('mongodb://spiritboy:aminspiritboy2@ds257732.mlab.com:57732/soul').then(function (con) {
     db = con.db('soul');
-    console.log(db);
     console.log("db running");
 });
 module.exports.getDataBase=()=>{
@@ -87,7 +86,11 @@ module.exports.menus = () => {
         db.collection('definition').find().project({
             _id: 1,
             uid: 1,
-            title:1
+            title:1,
+            "groups.title":1,
+            "groups.groupInfo.type":1,
+            "groups.questions.title":1,
+            "groups.questions.fieldInfo":1
         }).toArray().then(function (data) {
                 fulfill(data);
             }).catch(function (e) {
