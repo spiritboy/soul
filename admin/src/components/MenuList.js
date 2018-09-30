@@ -6,7 +6,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import EditIcon from '@material-ui/icons/Edit';
-import RemoveIcon from '@material-ui/icons/Remove';
 import CloseIcon from '@material-ui/icons/Close';
 import BallotIcon from '@material-ui/icons/Ballot';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
@@ -94,8 +93,33 @@ class MenuList extends React.Component {
             return <BallotIcon/>
         }
     }
-    handleClick = (e, data) => {
-        console.log(data.foo);
+    handleClick = (e, data,target) => {
+        console.log(target);
+    }
+
+    createContextMenu(id, data, onClick) {
+        return (
+            <ContextMenu id={id}>
+                <MenuItem data={data} onClick={onClick}>
+                    <ListItem style={{padding: 0}}>
+                        <ListItemIcon>
+                            <EditIcon style={{color: "darkblue"}}/>
+                        </ListItemIcon>
+                        <ListItemText inset primary="ویرایش"/>
+                    </ListItem>
+                </MenuItem>
+                <MenuItem divider/>
+                <MenuItem data={data} onClick={onClick}>
+                    <ListItem style={{padding: 0}}>
+                        <ListItemIcon>
+                            <CloseIcon style={{color: "darkred"}}/>
+                        </ListItemIcon>
+                        <ListItemText inset primary="حذف"/>
+                    </ListItem>
+                </MenuItem>
+
+            </ContextMenu>
+        )
     }
 
     render() {
@@ -112,7 +136,7 @@ class MenuList extends React.Component {
                 >
                     {this.doFilterMenu().map(menu =>
                         (<div>
-                                <ContextMenuTrigger id="some_unique_identifier">
+                                <ContextMenuTrigger id={"menu_ctx_" + menu.uid}>
 
                                     <ListItem button onClick={() => {
                                         menu.open = !menu.open;
@@ -131,64 +155,53 @@ class MenuList extends React.Component {
                                     <List component="div" disablePadding>
                                         {this.doFilterGroup(menu).map(g =>
                                             <div>
-                                                <ListItem button onClick={() => {
-                                                    g.open = !g.open;
-                                                    this.forceUpdate()
-                                                }}>
-                                                    <ListItemIcon>
-                                                        {this.getGroupIcon(g)}
-                                                    </ListItemIcon>
-                                                    <ListItemText inset primary={g.title.fa}
-                                                                  className={(g.found === true ? "highlight" : "")}/>
-                                                    {g.open || g.expanded ? <ExpandLess/> : <ExpandMore/>}
-                                                </ListItem>
+                                                <ContextMenuTrigger id={"group_ctx_" + g.uid}>
+                                                    <ListItem button onClick={() => {
+                                                        g.open = !g.open;
+                                                        this.forceUpdate()
+                                                    }}>
+                                                        <ListItemIcon>
+                                                            {this.getGroupIcon(g)}
+                                                        </ListItemIcon>
+                                                        <ListItemText inset primary={g.title.fa}
+                                                                      className={(g.found === true ? "highlight" : "")}/>
+                                                        {g.open || g.expanded ? <ExpandLess/> : <ExpandMore/>}
+                                                    </ListItem>
+                                                </ContextMenuTrigger>
                                                 <Collapse in={g.open || g.expanded} timeout="auto" unmountOnExit
                                                           style={{"padding-right": "20px"}}>
                                                     <List component="div" disablePadding>
                                                         {
                                                             this.doFilterQuestion(g, menu).map(q =>
                                                                 <div>
-                                                                    <ListItem button>
-                                                                        <ListItemIcon>
-                                                                            {this.getQuestionIcon(q)}
-                                                                        </ListItemIcon>
-                                                                        <ListItemText inset primary={q.title.fa}
-                                                                                      className={(q.found === true ? "highlight" : "")}/>
-                                                                    </ListItem>
+                                                                    <ContextMenuTrigger id={"question_ctx_" + q.uid}>
+                                                                        <ListItem button>
+                                                                            <ListItemIcon>
+                                                                                {this.getQuestionIcon(q)}
+                                                                            </ListItemIcon>
+                                                                            <ListItemText inset primary={q.title.fa}
+                                                                                          className={(q.found === true ? "highlight" : "")}/>
+                                                                        </ListItem>
+                                                                    </ContextMenuTrigger>
+                                                                    {this.createContextMenu("question_ctx_" + q.uid, q, this.handleClick)}
                                                                 </div>
                                                             )
                                                         }
                                                     </List>
                                                 </Collapse>
+                                                {this.createContextMenu("group_ctx_" + g.uid, g, this.handleClick)}
                                             </div>
                                         )}
                                     </List>
                                 </Collapse>
+                                {this.createContextMenu("menu_ctx_" + menu.uid, menu, this.handleClick)}
+
                             </div>
                         )
                     )}
 
                 </List>
-                <ContextMenu id="some_unique_identifier">
-                    <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
-                        <ListItem style={{padding:0}}>
-                            <ListItemIcon>
-                                <EditIcon  style={{color:"darkblue"}}/>
-                            </ListItemIcon>
-                            <ListItemText inset primary="ویرایش" />
-                        </ListItem>
-                    </MenuItem>
-                    <MenuItem divider/>
-                    <MenuItem data={{foo: 'bar'}} onClick={this.handleClick}>
-                        <ListItem style={{padding:0}} >
-                            <ListItemIcon>
-                                <CloseIcon style={{color:"darkred"}}/>
-                            </ListItemIcon>
-                            <ListItemText  inset primary="حذف"/>
-                        </ListItem>
-                    </MenuItem>
 
-                </ContextMenu>
             </div>
         );
     }
