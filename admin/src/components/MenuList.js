@@ -94,7 +94,8 @@ class MenuList extends React.Component {
         }
     }
     handleClick = (e, data,target) => {
-        console.log(target);
+        alert(1)
+        console.log(data);
     }
 
     createContextMenu(id, data, onClick) {
@@ -156,14 +157,14 @@ class MenuList extends React.Component {
                                         {this.doFilterGroup(menu).map(g =>
                                             <div>
                                                 <ContextMenuTrigger id={"group_ctx_" + g.uid}>
-                                                    <ListItem button onClick={() => {
+                                                    <ListItem  button onClick={() => {
                                                         g.open = !g.open;
                                                         this.forceUpdate()
                                                     }}>
                                                         <ListItemIcon>
                                                             {this.getGroupIcon(g)}
                                                         </ListItemIcon>
-                                                        <ListItemText inset primary={g.title.fa}
+                                                        <ListItemText title={"group_ctx_" + g.uid} inset primary={g.title.fa}
                                                                       className={(g.found === true ? "highlight" : "")}/>
                                                         {g.open || g.expanded ? <ExpandLess/> : <ExpandMore/>}
                                                     </ListItem>

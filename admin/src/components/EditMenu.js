@@ -22,31 +22,9 @@ export class EditMenu extends React.Component {
     render() {
         return (
             <div>
-                <ContextMenuTrigger id={"menu_ctx_1"}>
-                    <div>
-                        {this.props.menu}
-                    </div>
-                </ContextMenuTrigger>
-                <ContextMenu id={"menu_ctx_1"}>
-                    <MenuItem data={1} onClick={this.onClick}>
-                        <ListItem style={{padding: 0}}>
-                            <ListItemIcon>
-                                <EditIcon style={{color: "darkblue"}}/>
-                            </ListItemIcon>
-                            <ListItemText inset primary="ویرایش"/>
-                        </ListItem>
-                    </MenuItem>
-                    <MenuItem divider/>
-                    <MenuItem data={1} onClick={this.onClick}>
-                        <ListItem style={{padding: 0}}>
-                            <ListItemIcon>
-                                <CloseIcon style={{color: "darkred"}}/>
-                            </ListItemIcon>
-                            <ListItemText inset primary="حذف"/>
-                        </ListItem>
-                    </MenuItem>
-
-                </ContextMenu>
+                <div>
+                    {this.props.menu}
+                </div>
             </div>
         )
     }

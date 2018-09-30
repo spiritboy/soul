@@ -88,8 +88,10 @@ module.exports.menus = () => {
             uid: 1,
             title:1,
             "groups.title":1,
+            "groups.uid":1,
             "groups.groupInfo.type":1,
             "groups.questions.title":1,
+            "groups.questions.uid":1,
             "groups.questions.fieldInfo":1
         }).toArray().then(function (data) {
                 fulfill(data);
