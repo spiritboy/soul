@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class EditMenu extends React.Component {
+export class EditQuestion extends React.Component {
 
     componentWillMount() {
     }
@@ -12,7 +12,7 @@ export class EditMenu extends React.Component {
     render() {
         return (
             <div>
-                <h1>ویرایش مشخصات منو</h1>
+                <h1>ویرایش مشخصات سوال</h1>
                 <div>
                     {this.props.menu}
                 </div>

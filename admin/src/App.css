@@ -1,9 +1,10 @@
-body, h1, h2, span, div {
+body, h1, h2, span, div, label {
     font-family: "B Koodak"!important;
 }
 .highlight{
     background-color: #0c546055;
 }
+
 
 
 .react-contextmenu {

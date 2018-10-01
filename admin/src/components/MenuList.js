@@ -50,7 +50,7 @@ class MenuList extends React.Component {
                 return found || this.doFilterGroup(d).length > 0;
             }
         )
-    }
+    };
     doFilterGroup = (menu) => {
         if (menu.found === true) return menu.groups;
         return menu.groups.filter(d => {
@@ -63,7 +63,7 @@ class MenuList extends React.Component {
                 return result;
             }
         );
-    }
+    };
     doFilterQuestion = (group, menu) => {
         if (group.found === true || menu.found === true) return group.questions;
         return group.questions.filter(d => {
@@ -71,14 +71,14 @@ class MenuList extends React.Component {
             d.found = found && this.state.filter !== '';
             return found;
         })
-    }
+    };
     getGroupIcon = (g) => {
         if (g.groupInfo.type === 'form') {
             return <BallotIcon/>
         }
         else
             return <ListIcon/>
-    }
+    };
     getQuestionIcon = (q) => {
         if (q.fieldInfo.type === 'text') {
             return <TextFieldsIcon/>
@@ -92,11 +92,19 @@ class MenuList extends React.Component {
         else {
             return <BallotIcon/>
         }
-    }
-    handleClick = (e, data,target) => {
-        alert(1)
-        console.log(data);
-    }
+    };
+    handleMenuClick = (e, data) => {
+        if(this.props.onMenuEdit!=null)
+            this.props.onMenuEdit(data);
+    };
+    handleGroupClick = (e, data) => {
+        if(this.props.onGroupEdit!=null)
+            this.props.onGroupEdit(data);
+    };
+    handleQuestionClick = (e, data) => {
+        if(this.props.onQuestionEdit!=null)
+            this.props.onQuestionEdit(data);
+    };
 
     createContextMenu(id, data, onClick) {
         return (
@@ -136,7 +144,7 @@ class MenuList extends React.Component {
                     }} label={<SearchIcon/>}/></ListSubheader>}
                 >
                     {this.doFilterMenu().map(menu =>
-                        (<div>
+                        (<div key={"menu" + menu.uid}>
                                 <ContextMenuTrigger id={"menu_ctx_" + menu.uid}>
 
                                     <ListItem button onClick={() => {
@@ -152,29 +160,30 @@ class MenuList extends React.Component {
                                     </ListItem>
                                 </ContextMenuTrigger>
                                 <Collapse in={menu.open || menu.expanded} timeout="auto" unmountOnExit
-                                          style={{"padding-right": "20px"}}>
+                                          style={{paddingRight: "20px"}}>
                                     <List component="div" disablePadding>
                                         {this.doFilterGroup(menu).map(g =>
-                                            <div>
+                                            <div key={"group" + g.uid}>
                                                 <ContextMenuTrigger id={"group_ctx_" + g.uid}>
-                                                    <ListItem  button onClick={() => {
+                                                    <ListItem button onClick={() => {
                                                         g.open = !g.open;
                                                         this.forceUpdate()
                                                     }}>
                                                         <ListItemIcon>
                                                             {this.getGroupIcon(g)}
                                                         </ListItemIcon>
-                                                        <ListItemText title={"group_ctx_" + g.uid} inset primary={g.title.fa}
+                                                        <ListItemText title={"group_ctx_" + g.uid} inset
+                                                                      primary={g.title.fa}
                                                                       className={(g.found === true ? "highlight" : "")}/>
                                                         {g.open || g.expanded ? <ExpandLess/> : <ExpandMore/>}
                                                     </ListItem>
                                                 </ContextMenuTrigger>
                                                 <Collapse in={g.open || g.expanded} timeout="auto" unmountOnExit
-                                                          style={{"padding-right": "20px"}}>
+                                                          style={{paddingRight: "20px"}}>
                                                     <List component="div" disablePadding>
                                                         {
                                                             this.doFilterQuestion(g, menu).map(q =>
-                                                                <div>
+                                                                <div key={"question" + q.uid}>
                                                                     <ContextMenuTrigger id={"question_ctx_" + q.uid}>
                                                                         <ListItem button>
                                                                             <ListItemIcon>
@@ -184,18 +193,18 @@ class MenuList extends React.Component {
                                                                                           className={(q.found === true ? "highlight" : "")}/>
                                                                         </ListItem>
                                                                     </ContextMenuTrigger>
-                                                                    {this.createContextMenu("question_ctx_" + q.uid, q, this.handleClick)}
+                                                                    {this.createContextMenu("question_ctx_" + q.uid, q, this.handleQuestionClick)}
                                                                 </div>
                                                             )
                                                         }
                                                     </List>
                                                 </Collapse>
-                                                {this.createContextMenu("group_ctx_" + g.uid, g, this.handleClick)}
+                                                {this.createContextMenu("group_ctx_" + g.uid, g, this.handleGroupClick)}
                                             </div>
                                         )}
                                     </List>
                                 </Collapse>
-                                {this.createContextMenu("menu_ctx_" + menu.uid, menu, this.handleClick)}
+                                {this.createContextMenu("menu_ctx_" + menu.uid, menu, this.handleMenuClick)}
 
                             </div>
                         )
