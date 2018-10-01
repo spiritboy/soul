@@ -5,7 +5,7 @@ mongoClient.connect('mongodb://spiritboy:aminspiritboy2@ds257732.mlab.com:57732/
     db = con.db('soul');
     console.log("db running");
 });
-module.exports.getDataBase=()=>{
+module.exports.getDataBase = () => {
     return db;
 }
 //will return the full definition if a menu from the database
@@ -86,18 +86,87 @@ module.exports.menus = () => {
         db.collection('definition').find().project({
             _id: 1,
             uid: 1,
-            title:1,
-            "groups.title":1,
-            "groups.uid":1,
-            "groups.groupInfo.type":1,
-            "groups.questions.title":1,
-            "groups.questions.uid":1,
-            "groups.questions.fieldInfo":1
+            title: 1,
+            "groups.title": 1,
+            "groups.uid": 1,
+            "groups.groupInfo.type": 1,
+            "groups.questions.title": 1,
+            "groups.questions.uid": 1,
+            "groups.questions.fieldInfo": 1
         }).toArray().then(function (data) {
-                fulfill(data);
-            }).catch(function (e) {
+            fulfill(data);
+        }).catch(function (e) {
             reject(e);
         })
+    });
+};
+
+//will get the group
+module.exports.group = (muid, guid) => {
+    return new Promise(function (fulfill, reject) {
+        var query = {uid: muid, 'groups.uid': guid};
+        var proj = {_id: 0, 'groups': {$elemMatch: {uid: guid}}};
+        db.collection('definition').find(query).project(proj).toArray().then(function (data) {
+            var group = null;
+            if (data.length > 0)
+                group = data[0].groups[0];
+            fulfill(group);
+        }).catch(function (e) {
+            reject(e);
+        })
+    });
+};
+//will update a group
+module.exports.saveGroup_admin = function (body) {
+    return new Promise(function (fulfill, reject) {
+        var query = {uid: body.muid, 'groups.uid': body.uid};
+        db.collection('definition').update(query,{
+            $set:{
+                'groups.$.title.fa':body.fatitle,
+                'groups.$.title.en':body.entitle,
+                'groups.$.groupInfo.type':body.type,
+                'groups.$.uid':body.uid,
+            }
+        }).then(function (d) {
+            console.log(d);
+            fulfill(d);
+        }).catch(function (e) {
+            reject(e);
+        });
+    });
+}
+
+//will get the group
+module.exports.menu = (muid) => {
+    return new Promise(function (fulfill, reject) {
+        var query = {uid: muid};
+        var proj = {_id: 0, 'title':1,'uid':1};
+        db.collection('definition').find(query).project(proj).toArray().then(function (data) {
+            var menu = null;
+            if (data.length > 0)
+                menu = data[0];
+            fulfill(menu);
+        }).catch(function (e) {
+            reject(e);
+        })
+    });
+};
+//will update a group
+module.exports.saveMenu_admin = function (body) {
+    return new Promise(function (fulfill, reject) {
+        var query = {uid: body.uid};
+        db.collection('definition').update(query,{
+            $set:{
+                'title.fa':body.fatitle,
+                'title.en':body.entitle,
+                'uid':body.uid,
+            }
+        }).then(function (d) {
+            console.log(d);
+            fulfill(d);
+        }).catch(function (e) {
+            reject(e);
+        });
     });
 }
 function getNextSequence(name) {

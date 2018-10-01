@@ -1,6 +1,6 @@
 import React from 'react';
 import MenuList from "./MenuList";
-import {EditMenu} from "./EditMenu";
+import EditMenu from "./EditMenu";
 import {withStyles} from "@material-ui/core/styles";
 import {EditQuestion} from "./EditQuestion";
 import EditGroup from "./EditGroup";
@@ -28,6 +28,13 @@ class Main extends React.Component {
         editingGroup: null,
         editingQuestion: null
     };
+    initState = () => {
+        this.setState({
+            editingMenu: null,
+            editingGroup: null,
+            editingQuestion: null
+        })
+    }
     onMenuEdit = (menu) => {
         this.setState({
             editingMenu: menu.uid,
@@ -35,27 +42,29 @@ class Main extends React.Component {
             editingQuestion: null
         });
     };
-    onGroupEdit = (group) => {
+    onGroupEdit = (group,menu) => {
         this.setState({
             editingGroup: group.uid,
-            editingMenu: null,
+            editingMenu: menu.uid,
             editingQuestion: null
         });
     };
-    onQuestionEdit = (question) => {
+    onQuestionEdit = (question,group,menu) => {
         this.setState({
             editingQuestion: question.uid,
-            editingMenu: null,
-            editingGroup: null
+            editingMenu: menu.uid,
+            editingGroup:  group.uid,
         });
     };
     generateEditingControl = () => {
-        if (this.state.editingMenu != null)
-            return <EditMenu menu={this.state.editingMenu}/>;
+        if (this.state.editingQuestion != null)
+            return <EditQuestion quid={this.state.editingQuestion}/>;
         else if (this.state.editingGroup != null)
-            return <EditGroup menu={this.state.editingGroup}/>;
-        else if (this.state.editingQuestion != null)
-            return <EditQuestion menu={this.state.editingQuestion}/>;
+            return <EditGroup muid={this.state.editingMenu} guid={this.state.editingGroup}/>;
+        else if (this.state.editingMenu != null)
+            return <EditMenu muid={this.state.editingMenu}/>;
+        else
+            return null;
     }
 
     render() {
