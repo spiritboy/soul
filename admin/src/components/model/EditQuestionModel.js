@@ -9,7 +9,7 @@ export class EditQuestionModel {
     fieldInfo = {type: ''}
     load = (muid, guid, quid, callback) => {
         this.muid = muid;
-        this.uid = guid;
+        this.guid = guid;
         this.uid = quid;
         api.question(muid, guid, quid, (d) => {
             console.log(d);

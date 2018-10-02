@@ -202,7 +202,7 @@ module.exports.question = (muid, guid, quid) => {
                         }
                     }
             }
-            ,{$project:{_id:0,question:1}}
+            , {$project: {_id: 0, question: 1}}
         ];
         db.collection('definition').aggregate(aggregate).toArray().then(function (data) {
             var q = null;
@@ -218,19 +218,24 @@ module.exports.question = (muid, guid, quid) => {
 //will update a group
 module.exports.saveQuestion_admin = function (body) {
     return new Promise(function (fulfill, reject) {
-        var query = {uid: body.uid};
-        db.collection('definition').update(query, {
-            $set: {
-                'title.fa': body.fatitle,
-                'title.en': body.entitle,
-                'uid': body.uid,
-            }
-        }).then(function (d) {
-            console.log(d);
-            fulfill(d);
-        }).catch(function (e) {
-            reject(e);
-        });
+        let query = {uid: body.muid, 'groups.uid': body.guid, 'groups.questions.uid': body.uid};
+        let cursor = db.collection('definition').find(query);
+        cursor.toArray()
+            .then((item) => {
+                console.log(item.groups)
+                item.groups.forEach(g => {
+                    if (g.uid === body.guid) {
+                        console.log(1)
+                        g.questions.forEach(q => {
+                            if (q.uid === body.uid) {
+                                q.title = body.title;
+                                q.inSearch = body.inSearch;
+                            }
+                        })
+                    }
+                });
+                db.collection('definition').update({_id: item._id}, item).then(d => fulfill(d))
+            }).catch(e => reject(e));
     });
 }
 
