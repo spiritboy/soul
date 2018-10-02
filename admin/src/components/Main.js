@@ -2,7 +2,7 @@ import React from 'react';
 import MenuList from "./MenuList";
 import EditMenu from "./EditMenu";
 import {withStyles} from "@material-ui/core/styles";
-import {EditQuestion} from "./EditQuestion";
+import EditQuestion from "./EditQuestion";
 import EditGroup from "./EditGroup";
 
 const styles = theme => ({
@@ -58,7 +58,7 @@ class Main extends React.Component {
     };
     generateEditingControl = () => {
         if (this.state.editingQuestion != null)
-            return <EditQuestion quid={this.state.editingQuestion}/>;
+            return <EditQuestion  muid={this.state.editingMenu} guid={this.state.editingGroup} quid={this.state.editingQuestion}/>;
         else if (this.state.editingGroup != null)
             return <EditGroup muid={this.state.editingMenu} guid={this.state.editingGroup}/>;
         else if (this.state.editingMenu != null)

@@ -120,12 +120,12 @@ module.exports.group = (muid, guid) => {
 module.exports.saveGroup_admin = function (body) {
     return new Promise(function (fulfill, reject) {
         var query = {uid: body.muid, 'groups.uid': body.uid};
-        db.collection('definition').update(query,{
-            $set:{
-                'groups.$.title.fa':body.fatitle,
-                'groups.$.title.en':body.entitle,
-                'groups.$.groupInfo.type':body.type,
-                'groups.$.uid':body.uid,
+        db.collection('definition').update(query, {
+            $set: {
+                'groups.$.title.fa': body.fatitle,
+                'groups.$.title.en': body.entitle,
+                'groups.$.groupInfo.type': body.type,
+                'groups.$.uid': body.uid,
             }
         }).then(function (d) {
             console.log(d);
@@ -140,7 +140,7 @@ module.exports.saveGroup_admin = function (body) {
 module.exports.menu = (muid) => {
     return new Promise(function (fulfill, reject) {
         var query = {uid: muid};
-        var proj = {_id: 0, 'title':1,'uid':1};
+        var proj = {_id: 0, 'title': 1, 'uid': 1};
         db.collection('definition').find(query).project(proj).toArray().then(function (data) {
             var menu = null;
             if (data.length > 0)
@@ -155,11 +155,11 @@ module.exports.menu = (muid) => {
 module.exports.saveMenu_admin = function (body) {
     return new Promise(function (fulfill, reject) {
         var query = {uid: body.uid};
-        db.collection('definition').update(query,{
-            $set:{
-                'title.fa':body.fatitle,
-                'title.en':body.entitle,
-                'uid':body.uid,
+        db.collection('definition').update(query, {
+            $set: {
+                'title.fa': body.fatitle,
+                'title.en': body.entitle,
+                'uid': body.uid,
             }
         }).then(function (d) {
             console.log(d);
@@ -169,6 +169,71 @@ module.exports.saveMenu_admin = function (body) {
         });
     });
 }
+//will get the group
+module.exports.question = (muid, guid, quid) => {
+    return new Promise(function (fulfill, reject) {
+        var aggregate = [{$match: {uid: 'people', 'groups.uid': 'primaryInfo', 'groups.questions.uid': 'fname'}}
+            , {
+                $addFields:
+                    {
+                        question: {
+                            $arrayElemAt: [{
+                                $arrayElemAt: [{
+                                    $map: {
+                                        input: {
+                                            $filter: {
+                                                input: '$groups',
+                                                'as': 'g',
+                                                'cond': {$eq: ["$$g.uid", 'primaryInfo']}
+                                            }
+                                        },
+                                        as: 'g',
+                                        'in':
+                                            {
+                                                $filter: {
+                                                    input: '$$g.questions',
+                                                    'as': 'q',
+                                                    'cond': {$eq: ["$$q.uid", 'fname']}
+                                                }
+                                            }
+                                    }
+                                }, 0]
+                            }, 0]
+                        }
+                    }
+            }
+            ,{$project:{_id:0,question:1}}
+        ];
+        db.collection('definition').aggregate(aggregate).toArray().then(function (data) {
+            var q = null;
+            if (data.length > 0)
+                q = data[0].question;
+            console.log(q)
+            fulfill(q);
+        }).catch(function (e) {
+            reject(e);
+        })
+    });
+};
+//will update a group
+module.exports.saveQuestion_admin = function (body) {
+    return new Promise(function (fulfill, reject) {
+        var query = {uid: body.uid};
+        db.collection('definition').update(query, {
+            $set: {
+                'title.fa': body.fatitle,
+                'title.en': body.entitle,
+                'uid': body.uid,
+            }
+        }).then(function (d) {
+            console.log(d);
+            fulfill(d);
+        }).catch(function (e) {
+            reject(e);
+        });
+    });
+}
+
 function getNextSequence(name) {
     return db.collection('counters').findAndModify({_id: name}, null, {$inc: {seq: 1}});
 }
