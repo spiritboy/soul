@@ -222,19 +222,18 @@ module.exports.saveQuestion_admin = function (body) {
         let cursor = db.collection('definition').find(query);
         cursor.toArray()
             .then((item) => {
-                console.log(item.groups)
-                item.groups.forEach(g => {
+                item[0].groups.forEach(g => {
                     if (g.uid === body.guid) {
-                        console.log(1)
                         g.questions.forEach(q => {
                             if (q.uid === body.uid) {
+                                console.log(111111111111111)
                                 q.title = body.title;
                                 q.inSearch = body.inSearch;
                             }
                         })
                     }
                 });
-                db.collection('definition').update({_id: item._id}, item).then(d => fulfill(d))
+                db.collection('definition').update({_id: item[0]._id}, item[0]).then(d => fulfill(d))
             }).catch(e => reject(e));
     });
 }

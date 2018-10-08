@@ -21,6 +21,7 @@ export class EditQuestionModel {
         });
     };
     save = () => {
+        console.log(this);
         api.saveQuestion(this, (d) => {
             console.log(d);
         })

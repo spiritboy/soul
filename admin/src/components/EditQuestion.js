@@ -5,6 +5,7 @@ import SaveIcon from "../../node_modules/@material-ui/icons/Save";
 import CloseIcon from "../../node_modules/@material-ui/icons/Close";
 import {withStyles} from "@material-ui/core/styles";
 import {EditQuestionModel} from "./model/EditQuestionModel";
+import {helper} from "../lib/helper";
 
 const styles = theme => ({
     container: {
@@ -42,7 +43,7 @@ export class EditQuestion extends React.Component {
         })
     }
     handleChange = name => e => {
-        this.model[name] = e.target.value;
+        helper.setValue(this.model,name,e.target.value);
         this.forceUpdate();
     }
     render() {

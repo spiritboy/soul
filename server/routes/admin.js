@@ -49,7 +49,6 @@ router.get('/question', function (req, res) {
 
 router.post('/saveQuestion', function (req, res) {
     db.saveQuestion_admin(req.body).then(function (d) {
-        console.log(d);
         res.send(d);
     });
 });
