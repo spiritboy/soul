@@ -6,7 +6,6 @@ body, h1, h2, span, div, label {
 }
 
 
-
 .react-contextmenu {
     background-color: #fff;
     background-clip: padding-box;
@@ -88,4 +87,12 @@ body, h1, h2, span, div, label {
 .example-multiple-targets::after {
     content: attr(data-count);
     display: block;
+}
+.busyIndicator{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: #99999944;
 }

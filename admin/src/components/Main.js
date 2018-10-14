@@ -17,7 +17,7 @@ const styles = theme => ({
         position: "absolute",
         left: "250px",
         paddingTop: "50px",
-        paddingLeft: "10px"
+        paddingLeft: "10px",
     },
 });
 
@@ -65,6 +65,7 @@ class Main extends React.Component {
             return <EditMenu muid={this.state.editingMenu}/>;
         else
             return null;
+        this.forceUpdate();
     }
 
     render() {

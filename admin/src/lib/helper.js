@@ -8,10 +8,13 @@ export class helper {
         if (typeof(path) == 'string')
             path = path.split('.');
 
-        if (path.length > 1)
-            helper.setValue(obj[path.shift()], path, value);
-        else
+        if (path.length > 1) {
+            var currentPath = path.shift();
+            helper.setValue(obj[currentPath], path, value);
+        }
+        else {
             obj[path[0]] = value;
+        }
 
     }
 }

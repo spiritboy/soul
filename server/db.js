@@ -172,7 +172,7 @@ module.exports.saveMenu_admin = function (body) {
 //will get the group
 module.exports.question = (muid, guid, quid) => {
     return new Promise(function (fulfill, reject) {
-        var aggregate = [{$match: {uid: 'people', 'groups.uid': 'primaryInfo', 'groups.questions.uid': 'fname'}}
+        var aggregate = [{$match: {uid: muid, 'groups.uid': guid, 'groups.questions.uid': quid}}
             , {
                 $addFields:
                     {
@@ -184,7 +184,7 @@ module.exports.question = (muid, guid, quid) => {
                                             $filter: {
                                                 input: '$groups',
                                                 'as': 'g',
-                                                'cond': {$eq: ["$$g.uid", 'primaryInfo']}
+                                                'cond': {$eq: ["$$g.uid", guid]}
                                             }
                                         },
                                         as: 'g',
@@ -193,7 +193,7 @@ module.exports.question = (muid, guid, quid) => {
                                                 $filter: {
                                                     input: '$$g.questions',
                                                     'as': 'q',
-                                                    'cond': {$eq: ["$$q.uid", 'fname']}
+                                                    'cond': {$eq: ["$$q.uid", quid]}
                                                 }
                                             }
                                     }
@@ -226,9 +226,10 @@ module.exports.saveQuestion_admin = function (body) {
                     if (g.uid === body.guid) {
                         g.questions.forEach(q => {
                             if (q.uid === body.uid) {
-                                console.log(111111111111111)
                                 q.title = body.title;
                                 q.inSearch = body.inSearch;
+                                q.events = body.events;
+                                q.validation = body.validation;
                             }
                         })
                     }
