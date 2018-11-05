@@ -105,6 +105,10 @@ class EditQuestion extends React.Component {
     };
     handleChange = name => e => {
         helper.setValue(this.model, name, e.target.value);
+        if('fieldInfo.type' === name){
+            this.model.setFieldInfo(e.target.value);
+            console.log(this.model.fieldInfo)
+        }
         this.forceUpdate();
     };
 
@@ -168,7 +172,7 @@ class EditQuestion extends React.Component {
                                     <span> نوع داده </span>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
-                                    <TextField select label={"نوع گروه"}
+                                    <TextField select label={"نوع داده"}
                                                margin="normal"
                                                className={classes.textField}
                                                value={this.state.model.fieldInfo.type}

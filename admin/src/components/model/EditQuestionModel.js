@@ -1,4 +1,6 @@
 import {api} from "../../services/api";
+import {FieldInfoModel} from "./FieldInfo/FieldInfoModel";
+import {FieldInfoFactory} from "./FieldInfo/FieldInfoFactory";
 
 export class EditQuestionModel {
     uid = '';
@@ -33,6 +35,12 @@ export class EditQuestionModel {
         },
     };
     fieldInfo = {type: ''};
+
+     setFieldInfo(type) {
+         console.log(type)
+         this.fieldInfo = FieldInfoFactory.getFieldInfo(type);
+     }
+
     clear = () => {
         this.uid = '';
         this.guid = '';
