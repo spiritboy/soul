@@ -19,6 +19,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import BallotIcon from '@material-ui/icons/BallotOutlined';
 import Switch from '@material-ui/core/Switch';
+import TextFieldInfo from "./FieldInfo/TextFieldInfo";
+import SelectFieldInfo from "./FieldInfo/SelectFieldInfo";
 
 const styles = theme => ({
     container: {
@@ -105,9 +107,9 @@ class EditQuestion extends React.Component {
     };
     handleChange = name => e => {
         helper.setValue(this.model, name, e.target.value);
-        if('fieldInfo.type' === name){
+        if ('fieldInfo.type' === name) {
             this.model.setFieldInfo(e.target.value);
-            console.log(this.model.fieldInfo)
+            console.log(e.target.value)
         }
         this.forceUpdate();
     };
@@ -122,7 +124,7 @@ class EditQuestion extends React.Component {
                         <div className={classes.container}>
                             <ExpansionPanel>
                                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-                                    <InfoIcon outlined/>
+                                    <InfoIcon/>
                                     <span> اطلاعات اولیه </span>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
@@ -172,18 +174,32 @@ class EditQuestion extends React.Component {
                                     <span> نوع داده </span>
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails>
-                                    <TextField select label={"نوع داده"}
-                                               margin="normal"
-                                               className={classes.textField}
-                                               value={this.state.model.fieldInfo.type}
-                                               onChange={this.handleChange('fieldInfo.type')}
-                                               variant="outlined"
-                                               style={{width: '200px'}}>
+                                    <div>
+                                        <TextField select label={"نوع داده"}
+                                                   margin="normal"
+                                                   className={classes.textField}
+                                                   value={this.state.model.fieldInfo.type}
+                                                   onChange={this.handleChange('fieldInfo.type')}
+                                                   variant="outlined"
+                                                   style={{width: '200px'}}>
+                                            {
+                                                fieldTypes.map(op => <MenuItem key={op.value}
+                                                                               value={op.value}> {op.label}</MenuItem>)
+                                            }
+                                        </TextField>
                                         {
-                                            fieldTypes.map(op => <MenuItem key={op.value}
-                                                                           value={op.value}> {op.label}</MenuItem>)
+                                            this.state.model.fieldInfo.type === 'text' ?
+                                                <TextFieldInfo model={this.state.model.fieldInfo}/> :
+                                                this.state.model.fieldInfo.type === 'select' ?
+                                                    <SelectFieldInfo model={this.state.model.fieldInfo}/> :
+                                                    this.state.model.fieldInfo.type === 'date' ?
+                                                        <div>date</div> :
+                                                        this.state.model.fieldInfo.type === 'asyncSelect' ?
+                                                            <div>asyncSelect</div> :
+                                                            <div>other</div>
+
                                         }
-                                    </TextField>
+                                    </div>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                             <ExpansionPanel>

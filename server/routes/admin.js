@@ -42,7 +42,6 @@ router.get('/question', function (req, res) {
     let url_parts = url.parse(req.url, true);
     let qp = url_parts.query;
     db.question(qp.muid,qp.guid,qp.quid).then(function (d) {
-        console.log(d);
         res.send(d);
     });
 });

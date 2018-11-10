@@ -6,4 +6,8 @@ export class AsyncSelectFieldInfoModel extends FieldInfoModel{
         this.type = 'asyncSelect';
     }
     mask = '';
+    parse=(obj)=>{
+        this.mask = obj.mask;
+        return this;
+    }
 }

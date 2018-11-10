@@ -208,7 +208,6 @@ module.exports.question = (muid, guid, quid) => {
             var q = null;
             if (data.length > 0)
                 q = data[0].question;
-            console.log(q)
             fulfill(q);
         }).catch(function (e) {
             reject(e);
@@ -230,6 +229,7 @@ module.exports.saveQuestion_admin = function (body) {
                                 q.inSearch = body.inSearch;
                                 q.events = body.events;
                                 q.validation = body.validation;
+                                q.fieldInfo = body.fieldInfo;
                             }
                         })
                     }

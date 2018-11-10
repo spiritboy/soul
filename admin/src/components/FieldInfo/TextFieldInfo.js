@@ -1,6 +1,7 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import {TextFieldInfoModel} from "../model/FieldInfo/TextFieldInfoModel";
+import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
     container: {
@@ -27,11 +28,63 @@ const styles = theme => ({
 
 
 class TextFieldInfo extends React.Component {
-    model = new TextFieldInfoModel();
-    state = this.model;
+    model = null;//new TextFieldInfoModel();
+    state = {model: this.model};
+
+    componentDidMount() {
+        this.model = this.props.model;
+        this.setState({model: this.model});
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.model = nextProps.model;
+        this.setState({model: this.model});
+    }
+
     render() {
         const {classes} = this.props;
-        return (<input/>)
+        return (
+            <div>
+                {this.state.model != null ?
+
+                    <div>
+                        <TextField
+                            id="fa-mask"
+                            label="mask"
+                            value={this.state.model.mask}
+                            onChange={(e) => {
+                                this.state.model.mask = e.target.value;
+                                this.forceUpdate();
+                            }}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <TextField
+                            id="fa-mask"
+                            label="mask"
+                            value={this.state.model.minimumCharacter}
+                            onChange={(e) => {
+                                this.state.model.minimumCharacter = e.target.value;
+                                this.forceUpdate();
+                            }}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <TextField
+                            id="fa-mask"
+                            label="mask"
+                            value={this.state.model.maximumCharacter}
+                            onChange={(e) => {
+                                this.state.model.maximumCharacter = e.target.value;
+                                this.forceUpdate();
+                            }}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </div> :
+                    <div></div>}
+            </div>)
     }
 }
+
 export default withStyles(styles)(TextFieldInfo);

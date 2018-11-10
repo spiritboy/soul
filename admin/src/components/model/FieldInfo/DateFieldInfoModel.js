@@ -6,4 +6,8 @@ export class DateFieldInfoModel extends FieldInfoModel{
         this.type = 'date';
     }
     mask = '';
+    parse=(obj)=>{
+        this.mask = obj.mask;
+        return this;
+    }
 }

@@ -1,6 +1,5 @@
 import {api} from "../../services/api";
-import {FieldInfoModel} from "./FieldInfo/FieldInfoModel";
-import {FieldInfoFactory} from "./FieldInfo/FieldInfoFactory";
+import {FieldInfoModelFactory} from "./FieldInfo/FieldInfoModelFactory";
 
 export class EditQuestionModel {
     uid = '';
@@ -36,10 +35,9 @@ export class EditQuestionModel {
     };
     fieldInfo = {type: ''};
 
-     setFieldInfo(type) {
-         console.log(type)
-         this.fieldInfo = FieldInfoFactory.getFieldInfo(type);
-     }
+    setFieldInfo(type) {
+        this.fieldInfo = FieldInfoModelFactory.initFieldInfo(type);
+    }
 
     clear = () => {
         this.uid = '';
@@ -73,7 +71,7 @@ export class EditQuestionModel {
                 script: ''
             },
         };
-        this.fieldInfo = {type: ''};
+        this.fieldInfo = FieldInfoModelFactory.parseFieldInfo(null)
     }
     load = (muid, guid, quid, callback) => {
         this.clear();
@@ -84,7 +82,7 @@ export class EditQuestionModel {
             this.title = d.title;
             this.inSearch = d.inSearch;
             if (d.fieldInfo != null)
-                this.fieldInfo = d.fieldInfo;
+                this.fieldInfo = FieldInfoModelFactory.parseFieldInfo(d.fieldInfo);
             if (d.events != null)
                 this.events = d.events;
             if (d.validation != null)
