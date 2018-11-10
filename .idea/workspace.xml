@@ -6,8 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ad0431a-de84-45c4-844d-4de9521ff107" name="Default Changelist" comment="Default Changelist">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/admin/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/App.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,8 +35,8 @@
           <entry key="css" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="2" />
-          <entry key="js" value="46" />
-          <entry key="json" value="1" />
+          <entry key="js" value="47" />
+          <entry key="json" value="2" />
           <entry key="ts" value="2" />
         </counts>
       </usages-collector>
@@ -45,8 +44,8 @@
         <counts>
           <entry key="CSS" value="2" />
           <entry key="HTML" value="2" />
-          <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="46" />
+          <entry key="JSON" value="2" />
+          <entry key="JavaScript" value="47" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="TypeScript" value="2" />
         </counts>
@@ -55,13 +54,13 @@
         <counts>
           <entry key="css" value="62" />
           <entry key="gitignore" value="20" />
-          <entry key="js" value="5101" />
+          <entry key="js" value="5102" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="62" />
-          <entry key="JavaScript" value="5101" />
+          <entry key="JavaScript" value="5102" />
           <entry key="PLAIN_TEXT" value="20" />
         </counts>
       </usages-collector>
@@ -74,27 +73,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/src/components/EditMenu.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/src/components/model/FieldInfo/SelectFieldInfoModel.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="6" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/src/components/model/FieldInfo/FieldInfoModel.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -164,11 +142,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
               <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="201">
+              <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/admin/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -184,7 +180,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>styles</find>
       <find>font</find>
       <find>class</find>
       <find>padding-Right</find>
@@ -214,6 +209,7 @@
       <find>fieldInfo</find>
       <find>fieldinfo</find>
       <find>validation</find>
+      <find>merge</find>
     </findStrings>
     <replaceStrings>
       <replace>stat</replace>
@@ -246,7 +242,6 @@
         <option value="$PROJECT_DIR$/admin/services/api.js" />
         <option value="$PROJECT_DIR$/admin/scripts/start.js" />
         <option value="$PROJECT_DIR$/admin/src/JssRtlProvider.js" />
-        <option value="$PROJECT_DIR$/admin/src/App.js" />
         <option value="$PROJECT_DIR$/admin/src/components/MainMenu.js" />
         <option value="$PROJECT_DIR$/admin/public/index.html" />
         <option value="$PROJECT_DIR$/admin/src/routes/index.js" />
@@ -279,6 +274,7 @@
         <option value="$PROJECT_DIR$/admin/src/components/model/FieldInfo/AsyncSelectFieldInfoModel.js" />
         <option value="$PROJECT_DIR$/admin/src/components/FieldInfo/TextFieldInfo.js" />
         <option value="$PROJECT_DIR$/admin/.gitignore" />
+        <option value="$PROJECT_DIR$/admin/src/App.js" />
       </list>
     </option>
   </component>
@@ -323,6 +319,12 @@
               <item name="soul" type="b2602c69:ProjectViewProjectNode" />
               <item name="soul" type="462c0819:PsiDirectoryNode" />
               <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="soul" type="b2602c69:ProjectViewProjectNode" />
+              <item name="soul" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -412,12 +414,12 @@
       <workItem from="1539015378412" duration="6825000" />
       <workItem from="1539086969860" duration="918000" />
       <workItem from="1539169443475" duration="4167000" />
-      <workItem from="1541826022447" duration="76000" />
+      <workItem from="1541826022447" duration="302000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162250000" />
+    <option name="totallyTimeSpent" value="162476000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -432,7 +434,7 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15082383" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15082383" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -445,7 +447,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" visible="true" weight="0.20485175" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" visible="true" weight="0.20485175" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5015129" side_tool="true" weight="0.31023103" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -507,13 +509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5004">
           <caret line="301" column="8" selection-start-line="301" selection-start-column="8" selection-end-line="301" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -713,13 +708,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-391">
-          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/scripts/build.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
@@ -834,6 +822,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
