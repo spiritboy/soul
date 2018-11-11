@@ -5,9 +5,9 @@ export class DateFieldInfoModel extends FieldInfoModel{
         super()
         this.type = 'date';
     }
-    mask = '';
+    format = 'yyyy/mm/dd';
     parse=(obj)=>{
-        this.mask = obj.mask;
+        this.format =obj.format!=null?obj.format:'';
         return this;
     }
 }

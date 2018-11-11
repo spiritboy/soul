@@ -5,9 +5,15 @@ import TextField from "@material-ui/core/TextField";
 import CheckBox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const styles = theme => ({
-
-});
+const styles = theme => ({ container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    }});
 
 
 class SelectFieldInfo extends React.Component {
@@ -25,10 +31,12 @@ class SelectFieldInfo extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
+
         return (
             <div>
                 {this.state.model != null ?
-                    <div>
+                    <form className={classes.container}>
                         <FormControlLabel
                             control={
                                 <CheckBox
@@ -42,27 +50,29 @@ class SelectFieldInfo extends React.Component {
                             }
                             label="چند انتخابی"
                         />
-                        <TextField
-                            label="Source as URL"
+                        <TextField  className={classes.container}
+                            label="Source as URL1"
                             value={this.state.model.source.options.url}
                             onChange={(e) => {
                                 this.state.model.source.options.url = e.target.value;
+                                this.state.model.source.options.script = '';
                                 this.forceUpdate();
                             }}
                             margin="normal"
                             variant="outlined"
                         />
-                        <TextField
+                        <TextField  className={classes.container}
                             label="Source as Script"
                             value={this.state.model.source.options.script}
                             onChange={(e) => {
                                 this.state.model.source.options.script = e.target.value;
+                                this.state.model.source.options.url = '';
                                 this.forceUpdate();
                             }}
                             margin="normal"
                             variant="outlined"
                         />
-                    </div> :
+                    </form> :
                     <div></div>}
             </div>)
     }

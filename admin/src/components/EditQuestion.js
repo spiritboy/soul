@@ -21,6 +21,8 @@ import BallotIcon from '@material-ui/icons/BallotOutlined';
 import Switch from '@material-ui/core/Switch';
 import TextFieldInfo from "./FieldInfo/TextFieldInfo";
 import SelectFieldInfo from "./FieldInfo/SelectFieldInfo";
+import DateFieldInfo from "./FieldInfo/DateFieldInfo";
+import AsyncSelectFieldInfo from "./FieldInfo/AsyncSelectFieldInfo";
 
 const styles = theme => ({
     container: {
@@ -193,9 +195,9 @@ class EditQuestion extends React.Component {
                                                 this.state.model.fieldInfo.type === 'select' ?
                                                     <SelectFieldInfo model={this.state.model.fieldInfo}/> :
                                                     this.state.model.fieldInfo.type === 'date' ?
-                                                        <div>date</div> :
+                                                        <DateFieldInfo  model={this.state.model.fieldInfo}/> :
                                                         this.state.model.fieldInfo.type === 'asyncSelect' ?
-                                                            <div>asyncSelect</div> :
+                                                            <AsyncSelectFieldInfo model={this.state.model.fieldInfo}/> :
                                                             <div>other</div>
 
                                         }
