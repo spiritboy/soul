@@ -18,7 +18,7 @@ export class MenuComponent extends React.Component {
         return (
             <div className={'container'}>
                 <header>
-                    <h1>{this.props.menu.title.value}</h1>
+                    {/*<h1>{this.props.menu.title.value}</h1>*/}
                     <div className={'div-buttons'}>
                         <button className='search-button icon' onClick={this.search}>
                             <i className="fa fa-search"/>
@@ -93,7 +93,6 @@ export class MenuComponent extends React.Component {
                         if (foundQV) {
                             foundQV.beginSetCommittedValue();
                             foundQV.value = data[guid][quid];
-                            console.log(data[guid][quid]);
                             foundQV.endSetCommittedValue();
                         }
                     }

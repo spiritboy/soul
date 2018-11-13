@@ -21,27 +21,33 @@ export class cmd {
     }
 
     evalSync = (...params) => {
+        if((this.url == null || this.url === '') && (this.script == null || this.script === '')) {
+            return null;
+        }
         let text = '';
-        if (this.url != null) text = this.url;
-        else if (this.script != null) text = this.script;
+        if (this.url != null && this.url !== '') text = this.url;
+        else if (this.script != null && this.script !== '') text = this.script;
         for (let param of params) {
             text = text.replace(param.key, param.value);
         }
         text = this.inject(text)
-        if (this.url != null) {
+        if (this.url != null&& this.url !== '') {
             //async
             let out = api.get(text, null, false);
-            this.execute(out)
+            if(out!=null)
+                this.execute(out);
             return out;
         }
-        else if (this.script != null) {
+        else if (this.script != null&& this.script !== '') {
             let out = eval(text);
-            this.execute(out)
+            if(out!=null)
+                this.execute(out);
             return out;
         }
     };
 
     execute = (commands) => {
+        if(commands == null) return null;
         for (let command of commands) {
             if (command.name.toLowerCase() === 'setvalue') {
                 var cmd = new SetValueCommand(command.qValue, this.getMenu(), command);

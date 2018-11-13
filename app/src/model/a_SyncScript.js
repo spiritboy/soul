@@ -7,7 +7,11 @@ export class a_SyncScript {
     script;
 
     eval = (callback, ...params) => {
-        if (this.url != null) {
+        if((this.url == null || this.url === '') && (this.script == null || this.script === '')) {
+            callback(null);
+            return;
+        }
+        if (this.url != null && this.url !== 'null') {
             //async
             let tempUrl = this.url;
             for (let param of params) {
@@ -17,7 +21,7 @@ export class a_SyncScript {
                 callback(data);
             });
         }
-        else if (this.script != null) {
+        else if (this.script != null && this.script !== 'null') {
             let options = eval(this.script);
             var filter = options.filter(v =>
                 //if there is no params
@@ -31,6 +35,9 @@ export class a_SyncScript {
         }
     }
     evalSync = (...params) => {
+        if((this.url == null || this.url === '') && (this.script == null || this.script === '')) {
+            return null;
+        }
         if (this.url != null) {
             //async
             let tempUrl = this.url;

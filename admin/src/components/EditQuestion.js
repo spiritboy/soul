@@ -108,6 +108,7 @@ class EditQuestion extends React.Component {
         this.forceUpdate();
     };
     handleChange = name => e => {
+        console.log(name,e.target.value)
         helper.setValue(this.model, name, e.target.value);
         if ('fieldInfo.type' === name) {
             this.model.setFieldInfo(e.target.value);
@@ -386,7 +387,7 @@ class EditQuestion extends React.Component {
                                             placeholder={this.state.onValidationIsScript === false ? "Url here ... (http://soul.com/)" : ""}
                                             className={classes.textField}
                                             value={this.state.onValidationIsScript === false ? this.state.model.validation.url : this.state.model.validation.script}
-                                            onChange={this.handleChange('events.validation.' + (this.state.onValidationIsScript === false ? 'url' : 'script'))}
+                                            onChange={this.handleChange('validation.' + (this.state.onValidationIsScript === false ? 'url' : 'script'))}
                                             margin="normal"
                                             variant="outlined"
                                             rowsMax={50}

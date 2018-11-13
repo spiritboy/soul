@@ -14,7 +14,7 @@ export class Event {
         this.onEntered = new cmd().deserialize(input.onEntered,parent);
         this.onExiting = new cmd().deserialize(input.onExiting,parent);
         this.onEntering = new cmd().deserialize(input.onEntering,parent);
-        this.onValidate = new cmd().deserialize(input.onValidate,parent);
+        this.onValidate = null;// new cmd().deserialize(input.onValidate,parent);
         this.parentQuestion = parent;
         return this;
     }
