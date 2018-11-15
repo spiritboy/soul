@@ -1,8 +1,8 @@
 module.exports = {
     //will prepare the searchResults in  a proper format, sot they can be rendered in a desired way
-    prepareSearchResults: function (searchResults, menu) {
+    prepareSearchResults: function (searchResults, menu, lang) {
         return searchResults.map((row) => {
-            return this.prepareSearchResult(row, menu);
+            return this.prepareSearchResult(row, menu, lang);
         });
     },
 
@@ -20,7 +20,7 @@ module.exports = {
     //     _id: 5b4266f9f6e79a2c2c171d86,
     //     'نام': 'امیر',
     //     'نام خانوادگی': 'رضوانی' }
-    prepareSearchResult: function (row, menu) {
+    prepareSearchResult: function (row, menu, lang) {
         console.log(row);
         var newRow = {fkId: row.fkId, _id: row._id};
         delete row.fkId;
@@ -30,19 +30,18 @@ module.exports = {
                 if (Array.isArray(row[menuUid][gUid])) {
                     for (let item of row[menuUid][gUid]) {
                         for (let qUid in item) {
-                            if (newRow[menu.findQuestion(gUid, qUid).title] == null)
-                                newRow[menu.findQuestion(gUid, qUid).title] = '';
-                            newRow[menu.findQuestion(gUid, qUid).title] += (' ' + item[qUid]);
+                            if (newRow[menu.findQuestion(gUid, qUid).title[lang]] == null)
+                                newRow[menu.findQuestion(gUid, qUid).title[lang]] = [];
+                            newRow[menu.findQuestion(gUid, qUid).title[lang]].push(item[qUid])
                         }
                     }
                 }
                 else {
                     for (let qUid in row[menuUid][gUid])
-                        newRow[menu.findQuestion(gUid, qUid).title] = row[menuUid][gUid][qUid];
+                        newRow[menu.findQuestion(gUid, qUid).title[lang]] = row[menuUid][gUid][qUid];
                 }
             }
         }
-        console.log(newRow);
         return newRow;
     }
 }

@@ -5,6 +5,10 @@ export class api {
         return 'http://localhost:3000' + path;
     };
 
+    static lang() {
+        return 'fa';
+    }
+
     static getDefinition(menuId) {
         return fetch(api.url('/soul/getDefinition'))
             .then(res => res.json()).then(res => new Menu().deserialize(res));
@@ -13,7 +17,7 @@ export class api {
     static searchMenu(group, callback) {
         const result = group.normalizeData()
         result.menuUid = group.parentMenu.uid;
-
+        result.lang = api.lang();
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
@@ -45,7 +49,6 @@ export class api {
     static saveGroup = (group, callback) => {
         group.commitValue();
         const result = group.normalizeData();
-        console.log(result);
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {

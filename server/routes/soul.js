@@ -1,4 +1,4 @@
-var express = require('express')
+let express = require('express')
     , router = express.Router()
     , helper = require('../helper')
     , url = require('url')
@@ -18,14 +18,15 @@ router.get('/getdefinition/:language?', function (req, res) {
     });
 });
 router.post('/searchMenu', function (req, res) {
-    var searchObj = searchNormalizer(req.body.data);
+    let lang = req.body.lang;
+    let searchObj = searchNormalizer(req.body.data);
     db.getDefinition().then(function (data) {
-        var menuDefinition = new Menu().deserialize(data);
+        let menuDefinition = new Menu().deserialize(data);
         //calculate the projection from the menu structure ...
         let proj = menuDefinition.getProjection();
         db.search(searchObj, proj).then(function (d) {
             //prepare the results before send
-            res.send(helper.prepareSearchResults(d,menuDefinition));
+            res.send(helper.prepareSearchResults(d,menuDefinition,lang));
         }).catch(function (e) {
             res.send(e);
         })
@@ -33,8 +34,8 @@ router.post('/searchMenu', function (req, res) {
 });
 
 router.get('/loadFk', function (req, res) {
-    var url_parts = url.parse(req.url, true);
-    var queryParams = url_parts.query;
+    let url_parts = url.parse(req.url, true);
+    let queryParams = url_parts.query;
     db.loadfk(queryParams.fkId).then(function (data) {
         res.send(data);
     });

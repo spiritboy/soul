@@ -2,7 +2,7 @@ import * as React from "react";
 import {GroupComponent} from "../Group/GroupComponent";
 import {api} from "../../services/api";
 
-export class SearchDialog extends React.Component{
+export class SearchDialog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {cols: [], searchResult: []};
@@ -15,7 +15,7 @@ export class SearchDialog extends React.Component{
                 <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-body">
-                            <GroupComponent groupValue={this.props.group.groupValues[0]}  isSearch={true}/>
+                            <GroupComponent groupValue={this.props.group.groupValues[0]} isSearch={true}/>
                             <div>
                                 <button className="icon" onClick={this.search}><i className="fa fa-search"/></button>
                             </div>
@@ -39,7 +39,12 @@ export class SearchDialog extends React.Component{
                                             onDoubleClick={this.selectRow}>
                                             {this.state.cols.map((col, i) => {
                                                 return (
-                                                    <td key={i}>{item.data[col]}</td>
+                                                    <td key={i}>{
+                                                        (Array.isArray(item.data[col]))?
+                                                            item.data[col].map((v,index)=><span style={{margin:'0px 5px'}} className={"badge badge-info"}>{v}</span>)
+                                                            :
+                                                            item.data[col]
+                                                    }</td>
                                                 )
                                             })}
                                         </tr>
@@ -60,9 +65,13 @@ export class SearchDialog extends React.Component{
     }
 
     normalizeItem(item, parent, MAINITEM) {
-            for (const j in item) {
+        for (const j in item) {
             if (typeof(item[j]) !== "object") {
-                MAINITEM[parent ? parent + '.' + j : j] = item[j];
+                if (Array.isArray(item)) {
+                    MAINITEM[parent ? parent : j] = item;
+                }
+                else
+                    MAINITEM[parent ? parent + '.' + j : j] = item[j];
             }
             else {
                 this.normalizeItem(item[j], j, MAINITEM);
@@ -79,12 +88,13 @@ export class SearchDialog extends React.Component{
                 searchResultNormalized.push({isSelected: false, data: mainItem});
             }
             this.setState({searchResult: searchResultNormalized});
+            console.log(searchResultNormalized)
             this.calculateColumns();
         })
     };
 
     calculateColumns() {
-        const cols =[];
+        const cols = [];
         if (this.state.searchResult && this.state.searchResult.length > 0) {
             for (const col in this.state.searchResult[0].data) {
                 if (col !== "_id" && col !== "isSelected" && col !== "fkId") {
@@ -102,7 +112,7 @@ export class SearchDialog extends React.Component{
         row.isSelected = true;
         this.setState({searchResult: this.state.searchResult});
     }
-    selectRow = () => { 
+    selectRow = () => {
         this.state.searchResult.forEach((value, index) => {
             if (value.isSelected === true) {
                 this.props.onSelect(value.data.fkId);

@@ -74,7 +74,7 @@ export class Group {
         let ind = this.groupValues.indexOf(groupValue);
         if (ind >= 0) {
             this.groupValues.splice(ind, 1);
-            this.raiseEventIsDirtyChanged();
+            this.raiseEventIsDirtyChanged(true);
         }
     }
 
@@ -124,16 +124,17 @@ export class Group {
             gv.commitValue();
     };
 
-    isDirty() {
+    isDirty(force) {
+        if(force ===true)return true;
         for (let gv of this.groupValues)
             if (gv.isDirty())
                 return true;
         return false;
     }
 
-    raiseEventIsDirtyChanged = (isDirty) => {
+    raiseEventIsDirtyChanged = (force) => {
         for (let handler of this.eventIsDirtyChanged)
-            handler(this.isDirty());
+            handler(this.isDirty(force));
     };
     raiseEventSaving = () => {
         let saving = true;
